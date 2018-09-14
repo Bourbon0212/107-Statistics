@@ -1,0 +1,6 @@
+---
+title: "A Short Introduction to R"
+author: "b06208001龔泓愷"
+date: "2018年9月14日"
+output: html_document
+---
