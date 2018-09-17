@@ -6,9 +6,9 @@ output: html_document
 ---
 #### **Source:[A (very) short introduction to R](https://ceiba.ntu.edu.tw/course/aa5cdc/content/A%20%28very%29%20short%20introduction%20to%20R.pdf)**
 ## **ToDo Exercise**
-1.Compute the difference between 2014 and the year
+1.Compute the difference between 2018 and the year
 you started at this university and divide this by
-the difference between 2014 and the year you were
+the difference between 2018 and the year you were
 born. Multiply this with 100 to get the percentage
 of your life you have spent at this university. Use
 brackets if you need them. 
