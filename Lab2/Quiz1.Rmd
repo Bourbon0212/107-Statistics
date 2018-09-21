@@ -1,0 +1,27 @@
+---
+title: "Quiz1"
+author: "b06208001 龔泓愷"
+date: "2018年9月21日"
+output: html_document
+---
+###2.104
+
+####Sol1
+```{r}
+a <-56 - 2 ^ 2
+b <- 56 + 2 ^ 2
+c <- 56 + 2
+a
+b
+c
+```
+
+####Sol2
+```{r}
+a <- qnorm(0.025, mean = 56, sd = 2)
+b <- qnorm(0.975, mean = 56, sd = 2)
+c <- qnorm(0.84, mean = 56, sd = 2)
+a
+b
+c
+```
