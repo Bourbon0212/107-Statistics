@@ -85,8 +85,6 @@ levels(G)
 
 
 ############讀取檔案
-getwd() # get working directory
-setwd("D:/107-1 Statistics/lab2") 
 Student <- read.csv("Student.csv")
 ##Student <-read.table("Student.csv", header=TRUE, sep=",")   # header=True 資料的第一筆是否為變數名稱
 
