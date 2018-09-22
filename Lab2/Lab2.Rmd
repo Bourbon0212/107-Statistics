@@ -8,7 +8,7 @@ output: html_document
 a. 2391   
 b. People aged 65 or older    
 c. 'People attended a religious service once a week and prayed or studied the Bible' & 'Less likely to have high blood plessure'    
-d. Sample Data, because it was an observational study which can not followed all the population.   
+d. Sample Data, because the study was hard to follow all the population.   
 
 <br>
 
