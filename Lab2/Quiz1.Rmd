@@ -25,3 +25,18 @@ a
 b
 c
 ```
+
+####Plot
+```{r}
+# Simulate some random normally distributed data
+set.seed(11225)
+data <- rnorm(10000, mean = 56, sd = 2)
+
+# Calculate the density of data and store it in the variable density
+density <- dnorm(data, mean = 56, sd = 2)
+
+plot(data, density)
+abline(v = a, lwd = 3, col = 'darkred')
+abline(v = b, lwd = 3, col = 'darkred')
+abline(v = c, lwd = 3, col = '#E41A1C')
+```
