@@ -138,7 +138,7 @@ By definition, the outlier is 78.
 
 f. Explain    
 In my opinion, outliers would be more likely to occur in the salaries of heads of companies in general.   
-According to the magtitude of companies, the salaries differ.   
+According to the magnitude of companies, the salaries differ.   
 Sometimes, we even need to put those data on a log scale to see the trend.    
 
 <br>
