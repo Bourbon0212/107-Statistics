@@ -1,0 +1,56 @@
+---
+title: "Probability"
+author: "b06208001 龔泓愷"
+date: "2018年9月28日"
+output: html_document
+---
+#### 7.14   
+
+#### 7.32   
+
+#### 7.48
+a.
+P(A) = 0.55    
+P(AC) = 1 - P(A) = 0.45      
+P(B|A) = 0.8       
+P(B|AC) = 0.1       
+
+b.    
+P(A & B) = 0.55*0.8 = 0.44    
+代表是共和黨員，且投給候選人X           
+
+c.    
+P(AC & B) = 0.45*0.1 = 0.045    
+代表不是共和黨員，卻投給候選人X     
+
+d.    
+P(B) = 0.44 + 0.045 = 0.485       
+
+e.    
+候選人X得到48.5%的支持率
+
+#### 7.66   
+0.2/0.5 = 0.4   
+在已知其為女性的情況下，他是Democrat的機率是0.4
+
+#### 7.72
+a.    
+P(a) = 0.25^3 = 0.015625       
+平凡人連續答對三次的機率    
+
+b.    
+P(b) = 0.4^3 = 0.064      
+ESP者連續答對三次的機率   
+
+c.    
+通過測試 = 0.5 * 0.015625 + 0.5 * 0.064 = 0.0398125   
+通過測試的ESP = ESP通過測試/通過測試 = 0.8037677
+
+#### 7.76
+a.    
+50/10000 = 0.05   
+
+b.    
+Since 0.5% < 1%, it would be much safer by adding a stoplight.    
+However, we can not tell the influence in traffic condition (speed.etc) in this case.   
+We need further investigation to give a conclusion.   

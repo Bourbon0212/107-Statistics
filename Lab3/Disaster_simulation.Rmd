@@ -1,0 +1,72 @@
+---
+title: "Disaster Simulation"
+author: "b06208001 龔泓愷"
+date: "2018年9月28日"
+output: html_document
+---
+
+#### Customized Function
+```{r}
+simDisaster <- function(n){
+  #Setting
+  only_flood <- 0
+  only_slide <- 0
+  both <- 0
+  
+  #Simulating n times
+  for (i in 1:n){
+   
+    #flood sample p = 0.3
+    f.sim <- sample(x = 1:10, size = 1, replace = T)
+    if (f.sim <= 3){
+      flood = 1
+    }else{
+      flood = 0
+    }
+    
+    #slide sample p = 0.4
+    s.sim <- sample(x = 1:10, size = 1, replace = T)
+    if (s.sim <= 3){
+      slide = 1
+    }else{
+      slide = 0
+    }
+    
+    #Only flood
+    if (flood == 1 & slide == 0) {
+      only_flood = only_flood + 1
+    }
+    
+    #Only slide
+    if (flood == 0 & slide == 1) {
+      only_slide = only_slide + 1
+    }
+    
+    #Only 1 event
+    only_one = only_flood + only_slide
+    
+    #Both
+    if (flood == 1 & slide == 1) {
+      both = both + 1
+    }
+  }
+  
+  #Return
+  print(paste("Count of years with only flood event:", only_flood, "|", 
+              "Count of years with only slide event:", only_slide, "|",
+              "Count of years with only one event:", only_one, "|",
+              "Count of years with both event:", both))
+  
+  result = list(only_flood = only_flood, 
+                only_slide = only_slide,
+                only_one = only_one,
+                both = both)
+  return(result)
+  
+}
+```
+
+#### Simulation
+```{r}
+simDisaster(100)
+```
