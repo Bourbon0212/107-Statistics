@@ -130,9 +130,23 @@ $(document).ready(function () {
 
 <div id="section" class="section level4">
 <h4>7.14</h4>
+<ol style="list-style-type: lower-alpha">
+<li>1/6<br />
+</li>
+<li>1/3<br />
+</li>
+<li>1/2 <br></li>
+</ol>
 </div>
 <div id="section-1" class="section level4">
 <h4>7.32</h4>
+<ol style="list-style-type: lower-alpha">
+<li>22/190 = 0.1158<br />
+</li>
+<li>(2+6)/190 = 0.0421<br />
+</li>
+<li>(2+22+18+56+14)/190 = 112/190 = 0.5894 <br></li>
+</ol>
 </div>
 <div id="section-2" class="section level4">
 <h4>7.48</h4>
@@ -146,13 +160,13 @@ P(B|AC) = 0.1</p></li>
 <li><p>P(AC &amp; B) = 0.45*0.1 = 0.045<br />
 代表不是共和黨員，卻投給候選人X</p></li>
 <li><p>P(B) = 0.44 + 0.045 = 0.485</p></li>
-<li><p>候選人X得到48.5%的支持率</p></li>
+<li><p>候選人X得到48.5%的支持率 <br></p></li>
 </ol>
 </div>
 <div id="section-3" class="section level4">
 <h4>7.66</h4>
 <p>0.2/0.5 = 0.4<br />
-在已知其為女性的情況下，他是Democrat的機率是0.4</p>
+在已知其為女性的情況下，是Democrat的機率是0.4 <br></p>
 </div>
 <div id="section-4" class="section level4">
 <h4>7.72</h4>
@@ -162,7 +176,7 @@ P(B|AC) = 0.1</p></li>
 <li><p>P(b) = 0.4^3 = 0.064<br />
 ESP者連續答對三次的機率</p></li>
 <li><p>通過測試 = 0.5 * 0.015625 + 0.5 * 0.064 = 0.0398125<br />
-通過測試的ESP = ESP通過測試/通過測試 = 0.8037677</p></li>
+通過測試的ESP = ESP通過測試/通過測試 = 0.8037677 <br></p></li>
 </ol>
 </div>
 <div id="section-5" class="section level4">
@@ -171,8 +185,31 @@ ESP者連續答對三次的機率</p></li>
 <li><p>50/10000 = 0.05</p></li>
 <li><p>Since 0.5% &lt; 1%, it would be much safer by adding a stoplight.<br />
 However, we can not tell the influence in traffic condition (speed.etc) in this case.<br />
-We need further investigation to give a conclusion.</p></li>
+We need further investigation to give a conclusion.<br />
+<br></p></li>
 </ol>
+</div>
+<div id="function-practice" class="section level4">
+<h4>Function Practice</h4>
+<p>利用R自訂SimProb()函數，計算Example 7.29的機率事件，使用者能透過設定模擬次數與購買包數，計算贏得four prizes的機率。</p>
+<pre class="r"><code># n = 模擬次數， p = 購買包數
+SimProb &lt;- function(n, p){
+  # Setting
+  prize = 0
+  
+  for(i in 1:n){
+    cereal &lt;- sample(x = 1:4, size = p, replace = T)
+    
+    # %in% 有沒有在裡面
+    if (1 %in% cereal &amp; 2 %in% cereal &amp; 3 %in% cereal &amp; 4 %in% cereal){
+      prize = prize + 1
+    }
+  }
+  
+  return(prize/n)
+}
+SimProb(1000, 6)</code></pre>
+<pre><code>## [1] 0.387</code></pre>
 </div>
 
 
