@@ -1,0 +1,82 @@
+---
+title: "Random Variables"
+author: "b06208001 龔泓愷"
+date: "2018年10月5日"
+output: html_document
+---
+####8.18
+<br>    
+
+####8.40
+<br>    
+
+####8.50
+<br>    
+
+####8.72
+<br>    
+
+####8.82
+a. For a binomial distribution：   
+mean = np   
+sd = sqrt(np(1-p))    
+```{r}
+mean = 100 * 0.5
+mean
+sd = sqrt(100 * 0.5 * 0.5)
+sd
+```
+
+b. P(>=60) by normal distribution approximation.    
+```{r}
+pnorm(60, mean = 50, sd = 5, lower.tail =  F)
+```
+
+c. P(>=59.5) by normal distribution approximation. 
+```{r}
+pnorm(59.5, mean = 50, sd = 5, lower.tail =  F)
+```
+
+d. P(>=60) by binomial function.    
+```{r}
+pbinom(59, size = 100, prob = 0.5, lower.tail = F)
+```
+
+e. For a binomial distribution, the most accurate value will be caculated by using `pbinom()`, which is (d.).   
+On the other hand, the least accurate value will be caculated by using `pnorm()` without correction, which is (b.).   
+<br>    
+
+####8.90
+a. Linear combinations of two normal distributions will be normal distribution as well.   
+b. `mean(X-Y) = mean(X) - mean(Y) = 0`   
+The mean supposed to be `0` if we did enough sampling.         
+c. `variance(X-Y) = variance(X) + variance(Y)`    
+`sd(X-Y) = sqrt(variance(X-Y)) = sqrt(variance(X) + variance(Y))`   
+The sd should be`sqrt(2.8^2 + 2.8^2) = 3.96` if we did enough sampling.     
+```{r}
+#Setting
+event = c()
+
+for (i in 1:100000){
+
+  sample <- rnorm(2, mean = 70, sd = 2.8)
+  X = sample[1]
+  Y = sample[2]
+  D = X - Y
+  
+  event[i] = D
+}
+mean(event)
+sd(event)
+```
+d. P(D > 3)   
+```{r}
+pnorm(3, mean = 0, sd = 3.96, lower.tail =  F)
+```
+e. P(D > 3| D <- 3)
+```{r}
+
+```
+<br>    
+
+####Function Practice

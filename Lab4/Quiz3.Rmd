@@ -1,0 +1,35 @@
+---
+title: "Quiz3"
+author: "b06208001 龔泓愷"
+date: "2018年10月5日"
+output: html_document
+---
+####8.82
+a. For a binomial distribution：   
+mean = np   
+sd = sqrt(np(1-p))    
+```{r}
+mean = 100 * 0.5
+mean
+sd = sqrt(100 * 0.5 * 0.5)
+sd
+```
+
+b. P(>=60) by normal distribution approximation.    
+```{r}
+pnorm(60, mean = 50, sd = 5, lower.tail =  F)
+```
+
+c. P(>=59.5) by normal distribution approximation. 
+```{r}
+pnorm(59.5, mean = 50, sd = 5, lower.tail =  F)
+```
+
+d. P(>=60) by binomial function.    
+```{r}
+pbinom(59, size = 100, prob = 0.5, lower.tail = F)
+```
+
+e. For a binomial distribution, the most accurate value will be caculated by using `pbinom()`, which is (d.).   
+On the other hand, the least accurate value will be caculated by using `pnorm()` without correction, which is (b.).   
+<br>    
