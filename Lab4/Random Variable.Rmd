@@ -5,21 +5,76 @@ date: "2018年10月5日"
 output: html_document
 ---
 ####8.18
+a. RR(X=0)、RL(X=1)、LR(X=1)、LL(X=2)     
+b. P(RR) = 7/10 * 6/9 = 42/90    
+P(RL) = 7/10 * 3/9 = 21/90     
+P(LR) = 3/10 * 7/9 = 21/90    
+P(LL) = 3/10 * 2/9 = 6/90     
+c. P(X) = {X = 0 or 1 P(X) = 42/90, X = 2 P(X) = 6/90, X != 0, 1 or 2 P(X) = 0}   
+d.
+```{r warning = F}
+Left_Handed <- c(0, 1, 2)
+Probability <- c(42/90, 42/90, 6/90)
+Q818 <- data.frame(Left_Handed, Probability)
+library(ggplot2)
+ggplot(Q818, aes(x = Left_Handed, y = Probability)) +
+  geom_histogram(stat = 'identity')
+```
 <br>    
 
-####8.40
+####8.40    
+a. 
+```{r}
+0.2*20 + 0.8*15
+```
+b. No, it's not. It's never equal to the actual commute time for the expected value refers to the **long run average**.   
+
 <br>    
 
 ####8.50
+a. 
+```{r}
+choose(10, 5)*(1/2)^5*(1/2)^5
+dbinom(5, size = 10, prob = 0.5)
+```
+b.
+```{r}
+choose(10, 7)*(1/2)^7*(1/2)^3
+dbinom(7, size = 10, prob = 0.5)
+```
+c.
+```{r}
+choose(10, 7)*(1/2)^7*(1/2)^3 + choose(10, 8)*(1/2)^8*(1/2)^2 + choose(10, 9)*(1/2)^9*(1/2)^1 + choose(10, 10)*(1/2)^10*(1/2)^0
+pbinom(6, size = 10, prob = 0.5, lower.tail = F)
+```
 <br>    
 
 ####8.72
+mean = 500, sd = 100    
+a. P(X<=500)，half of the population which its probability equals 0.5 
+```{r}
+a <- pnorm(500, mean = 500, sd = 100)
+a
+```
+b. P(X<=650)    
+```{r}
+pnorm(650, mean = 500, sd = 100)
+```
+c.P(X>=700)
+```{r}
+c <- pnorm(700, mean = 500, sd = 100, lower.tail = F)
+c
+```
+d.P(500<=X<=700)
+```{r}
+(1-c) - a
+```
 <br>    
 
 ####8.82
 a. For a binomial distribution：   
-mean = np   
-sd = sqrt(np(1-p))    
+mean = `np`   
+sd = `sqrt(np(1-p))`    
 ```{r}
 mean = 100 * 0.5
 mean
@@ -75,8 +130,44 @@ pnorm(3, mean = 0, sd = 3.96, lower.tail =  F)
 ```
 e. P(D > 3| D <- 3)
 ```{r}
-
+2*pnorm(3, mean = 0, sd = 3.96, lower.tail =  F)
 ```
 <br>    
 
 ####Function Practice
+* 某都市有10萬人口，某疾病每人每年感染機率為p = 0.01，請繪製該市每年感染人數頻率分布圖。     
+```{r warning = F}
+Population = c(1:100000)
+Density = dbinom(Population, size = 100000, prob = 0.01)
+Data <- data.frame(Population, Density)
+ggplot(Data, aes(x = Population, y = Density)) +
+  geom_line() +
+  scale_x_log10() +
+  ggtitle('每年感染人數頻率分布圖')
+```
+
+* 市長承諾，該年感染超過1050就下台。請問4年內市長下台機率。     
+```{r warning = F}
+d <- pbinom(1049, size = 100000, prob = 0.01, lower.tail = F) #P(>=1500) = 1- P(<=1049)每一年超過1050人得病的機率
+pbinom(0, size = 4, prob = d, lower.tail = F)#P(>=1) = 1 - P(<=0) #至少一年有1050人以上
+```
+
+* 電腦模擬針對100年發生最大疫情規模的年度，估計該年度感染人數。     
+```{r warning = F}
+Disease <- function(n){
+  #Setting
+  disease.event = c()
+  for(i in 1:n){ #模擬n年
+    count = 0
+    for (j in 1:100000){ #模擬10萬市民
+      samp = sample(1:100, 1, replace = T)
+      if (samp == 1){
+        count = count + 1
+      } 
+    }
+    disease.event[i] = count
+  }
+  return(disease.event)
+}
+max(Disease(100))
+```
