@@ -249,7 +249,7 @@ for (i in 1:365){
     count = count + 1
 }
 count</code></pre>
-<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 2</code></pre>
 <p><strong>會超出離群值(outlier)的日數為上面(count)的天數</strong> <br></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>若該城市警察加強巡邏，將每人每天會遭竊的機率降低為 0.001。<br />
@@ -380,7 +380,8 @@ pbinom(0, size = 7, prob = 1-p, lower.tail = F)</code></pre>
 老闆每天準備的珍珠量，可製作 75 杯飲品。假設每個時段的銷售是獨立事件。</p>
 <ol style="list-style-type: lower-alpha">
 <li>某人在 17:30 下班，已買不到珍珠奶茶的機率。<br />
-能否買到珍珠為二項分布。</li>
+能否買到珍珠為二項分布。<br />
+不能買到珍珠，代表17:30至少已賣出75杯珍珠飲料：P(&gt;=75) = 1 - P(&lt;=74)</li>
 </ol>
 <pre class="r"><code>1 - pbinom(75, size = 7*60+30, prob = 0.15)</code></pre>
 <pre><code>## [1] 0.1457492</code></pre>
