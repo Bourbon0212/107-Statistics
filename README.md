@@ -14,3 +14,4 @@ Lab4: [Random Variable](https://bourbon0212.github.io/107-Statistics/Lab4/Random
 [Quiz2](https://bourbon0212.github.io/107-Statistics/Lab3/Quiz2.html)   
 [Quiz3](https://bourbon0212.github.io/107-Statistics/Lab4/Quiz3.html)   
 [Midterm Exam 1 Practice](https://bourbon0212.github.io/107-Statistics/Midterm1/2017_Midterm_Exam_Practice.html)
+Midterm Exam 1：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Midterm1/2018Midterm1.html)，[Test Paper](https://ceiba.ntu.edu.tw/course/aa5cdc/content/統計學及實習考試一.pdf)
