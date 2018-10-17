@@ -12,4 +12,5 @@ Lab4: [Random Variable](https://bourbon0212.github.io/107-Statistics/Lab4/Random
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
 [Quiz2](https://bourbon0212.github.io/107-Statistics/Lab3/Quiz2.html)   
-[Quiz3](https://bourbon0212.github.io/107-Statistics/Lab4/Quiz3.html)  
+[Quiz3](https://bourbon0212.github.io/107-Statistics/Lab4/Quiz3.html)   
+[Midterm Exam 1 Practice](https://bourbon0212.github.io/107-Statistics/Midterm1/2017_Midterm_Exam_Practice.html)
