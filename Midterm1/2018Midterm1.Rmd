@@ -1,0 +1,218 @@
+---
+title: "2018 Statistics Midterm Exam1"
+author: "地理二 b06208001 龔泓愷"
+date: "2018年10月17日"
+output: html_document
+---
+#Q1
+```{r}
+Q1 <- c(196,212,200,249,206,178,184,198,160,182,198,182,222,198,188,166,204,178,164,230)
+```
+
+(1)  Draw a histogram of these data. Make the bars cover intervals of cholesterol that are 10 wide.     
+```{r}
+hist(Q1, breaks = 10, main = 'Cholesterol levels of 20 Individuals', xlab = 'Cholesterol Levels')
+```
+
+(2) Draw a boxplot of the cholesterol levels.     
+```{r}
+boxplot(Q1, main = 'Cholesterol levels of 20 Individuals', ylab = 'Cholesterol Levels')
+```
+
+(3) Identify the outlier(s) in the data using the IQR principle in the text book.   
+```{r}
+sort(Q1)#升冪排列
+quantile(Q1, na.rm = T)[2] - 1.5 * IQR(Q1, na.rm = T)#Outlier下界
+quantile(Q1, na.rm = T)[4] + 1.5 * IQR(Q1, na.rm = T)#Outlier上界
+```
+
+**小於146或是大於240即為Outliers，此題只有249為Outlier。**    
+
+(4) Create a 5-number summary for these data.   
+```{r}
+summary(Q1)
+```
+
+**上程式結果扣除mean，即為5-number summary**
+
+(5) How would you describe the shape of the data?   
+
+**由於極值出現在直方圖右邊，使得整張圖為右曳。**
+
+
+<br>
+
+#Q2
+
+(1) Between 62 kg and 65 kg.    
+```{r}
+pnorm(65, mean = 65, sd = 2.7) - pnorm(62, mean = 65, sd = 2.7)
+```
+
+**使用R運算，所得結果為0.3667397**
+
+```{r}
+Z65 = 0
+Z62 = (62 - 65)/2.7
+Z62
+0.5 - 0.1335
+```
+
+**查表後，Z65對應的機率為0.5，Z62對應的機率為0.1335，而得所求0.3665**
+
+
+(2) Less than 70 kg.    
+```{r}
+pnorm(70, mean = 65, sd = 2.7)
+```
+
+**使用R運算，所得結果為0.9679765**
+
+```{r}
+Z70 = (70 - 65)/2.7
+Z70
+```
+**查表後，Z70對應的機率為0.9678，即為所求**
+
+(3) Greater than 60 kg.   
+```{r}
+pnorm(60, mean = 65, sd = 2.7, lower.tail = F)
+```
+
+**使用R運算，所得結果為0.9679765**
+
+```{r}
+Z60 = (60 - 65)/2.7
+Z60
+1 - 0.0322
+```
+
+**查表後，Z60對應的機率為0.0322，1 - 0.0322 = 0.9678即為所求**
+
+
+(4) Either less than 60 kg or greater than 70 kg.     
+```{r}
+pnorm(60, mean = 65, sd = 2.7) + pnorm(70, mean = 65, sd = 2.7, lower.tail = F)
+```
+
+**使用R運算，所得結果為0.0640471**
+
+```{r}
+0.0322 * 2
+```
+
+**查表後，Z60對應的機率為0.0322，又因對稱性，0.0322 * 2 = 0.0644即為所求**
+
+<br>
+
+#Q3
+
+(1) 請估計 KP、DD、YY 三位候選人各自的得票率。    
+```{r}
+KP = 0.6 * 0.4 + 0.4 * 0.5
+KP
+DD = 0.6 * 0.55 + 0.4 * 0.05
+DD
+YY = 0.6 * 0.05 + 0.4 * 0.45
+YY
+```
+**KP的得票率為0.44，DD的得票率為0.35，YY的得票率為0.21**
+
+(2) 若子問題(1)的分析結果，KP 的得票率勝過 YY，你想要設法提高非泛藍選 民對 YY 的支持度(亦即：票投 YY 的比例)，來提高 YY 的得票率。請問 要自目前的 45%再提高多少比例以上，YY 的得票率才會超越 KP？(假設 提高非泛藍選民對 YY 的支持度，會等量地減少非泛藍選民對 KP 的支持 度，但不會影響非泛藍選民對 DD 的支持度。) 
+
+設X為YY欲提高的支持度，根據題目說明，可以列出以下等式：   
+`0.6 * 0.4 + 0.4(0.5 - x) = 0.6 * 0.05 + 0.4 * (0.45 + x)`    
+最後解得 `X = 0.2875`   
+
+**YY需再提高非泛藍選民的支持度要超過0.2875**
+
+<br>
+
+#Q4
+
+(1) 你今日搭 W 航空公司班機，在起點機場誤點出發，估計在終點機場準點抵達的機率為何？   
+
+定義事件：    
+
+* A = 終點誤點    
+* AC = 終點準點       
+* B = 起點誤點    
+* BC = 起點準點   
+
+已知機率：  
+
+* P(A) = 0.1    
+* P(AC) = 0.9   
+* P(B|A) = 0.8    
+* P(BC|A) = 0.2   
+* P(BC|AC) = 0.9    
+* P(B|AC) = 0.1   
+
+假設變數：    
+
+. |A      |AC     |.      
+--|-------|-------|---    
+**B** |y |x - y|x      
+**BC**|0.1 - y      |0.9 - x +y |1-x    
+. |0.1    |0.9    |.      
+
+P(A)P(B|A) = P(A&B) = 0.1 * 0.8 = y   
+P(AC)P(B|AC) = P(B&AC) = 0.9 * 0.1 = x - y    
+解聯立得x = 0.17，y = 0.08    
+所求即為P(AC|B) = P(B|AC)*P(AC)/P(B)
+```{r}
+0.1 * 0.9 / 0.17
+```
+**所求即為0.5294118**
+
+(2) 你加入 W 航空公司尊榮會員，會員每次搭乘航班時，若在起點機場準點出 發，但在終點機場誤點抵達，則公司會賠償會員 100 美元。你加入會員後， 預計一生中會搭乘 200 次 W 航空航班，請用電腦模擬，估計這一生會收到來自 W 航空公司的誤點賠償金額的期望值    
+
+誤點與否為二項分布，期望值為np。
+P(起點機場準點 & 終點機場誤點) = P(BC & A) = 0.1 - y = 0.02
+
+```{r}
+p = 0.02
+200 * 100 * p
+```
+
+**這一生會收到來自 W 航空公司的誤點賠償金額的期望值400美元**
+
+<br>
+
+#Q5
+台北市 YouBike 系統目前有 400 個租借站，每天有 10,000 部公共自行車在系 統上運作，故障率是 1%。    
+(1) 請繪製台北市 YouBike 系統每天故障車輛數機率分布圖。   
+故障與否為二項分布。    
+```{r}
+# The Xs and Ys of the plot
+xx = c(0:10000)
+yy = dbinom(xx, size = 10000, prob = 0.01)
+	
+# Plotting
+plot(x = xx, y = yy, type = "l", main = "台北市 YouBike 系統每天故障車輛數機率分布圖", xlab = '故障數量', ylab = '機率', xlim = c(0,200))
+```
+
+
+(2) 若故障車輛隨機出現在租借站，且每個租借站最多只會出現一部故障車輛， 則每天有超過 30%的租借站出現故障車輛的機率為何？   
+超過120個租借站出現故障車輛即P(>120) = P(>=121) = 1 - P(<=120)。   
+每個租借站出現一台故障車的機率為10000*0.01/400 = 0.25   
+租借站是否出現故障車為二項分布。
+```{r}
+pbinom(120, size = 400, prob = 0.25, lower.tail = F)
+```
+
+**每天有超過 30%的租借站出現故障車輛的機率為0.009970218**
+
+(3) 模擬在一年(365 天)中的每天故障車輛數，並估計在一年中，每天故障車輛 數屬於「離群值(outlier)」的日數。    
+```{r}
+data <- rbinom(365, size = 10000, prob = 0.01)
+Q1T <- quantile(data)[2] - 1.5 * IQR(data)
+Q3T <- quantile(data)[4] + 1.5 * IQR(data)
+count = 0
+for (i in 1:365){
+  if (data[i] < Q1T|data[i] > Q3T)
+    count = count + 1
+}
+count
+```
+**會超出離群值(outlier)的日數為上面(count)的天數**
