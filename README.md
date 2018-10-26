@@ -9,7 +9,7 @@ Lab1: [A Short Introduction to R](https://bourbon0212.github.io/107-Statistics/L
 Lab2: [Turning Data into Information](https://bourbon0212.github.io/107-Statistics/Lab2/Lab2.html)    
 Lab3: [Probability](https://bourbon0212.github.io/107-Statistics/Lab3/Probability.html)，[Disaster Simulation](https://bourbon0212.github.io/107-Statistics/Lab3/Disaster_simulation.html)     
 Lab4: [Random Variable](https://bourbon0212.github.io/107-Statistics/Lab4/Random_Variable.html)   
-Lab7: [Statistics as Random Variables](https://bourbon0212.github.io/107-Statistics/Lab7/Statistics_as_Random_Variable.html)     
+Lab7: [Statistics as Random Variables](https://bourbon0212.github.io/107-Statistics/Lab7/Statistics_as_Random_Variables.html)     
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
 [Quiz2](https://bourbon0212.github.io/107-Statistics/Lab3/Quiz2.html)   
