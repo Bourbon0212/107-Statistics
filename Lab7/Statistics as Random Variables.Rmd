@@ -1,0 +1,50 @@
+---
+title: "Statistics as Random Variables"
+author: "b06208001 龔泓愷"
+date: "2018年10月26日"
+output: html_document
+---
+##Function Practice
+
+###Example9.4
+```{r}
+#Each of Sampling
+bino.x = function(n, p){
+  samp = sample(x = c(0,1), n, replace = T, prob = c(1-p, p))
+  x = sum(samp)
+  phat = x/n
+  return(phat)
+}
+
+#Sample Many Times
+simu.phat = c()
+for (i in 1:1000){#進行1000次模擬
+  x = bino.x(n = 2400, p = 0.4)#每次模擬抽2400人
+  simu.phat[i] = x
+}
+
+#Draw
+hist(simu.phat, probability = T, breaks = 20,
+     main = 'Possible Sample Proportions Favoring a Candidate',
+     xlab = ('Sample Proportion'),
+     col = 'gold3', border = 'white')
+
+#Calculating simulated and theoretical values
+n = 2400
+p = 0.4
+simu.mean = mean(simu.phat);simu.mean
+simu.sd = sd(simu.phat);simu.sd
+theo.mean = p;theo.mean
+theo.sd = sqrt(p*(1-p)/n);theo.sd
+
+#Overlapping with a curve(curve用法很特別)
+curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
+
+#Caculating Z-score
+simu.z = (simu.phat - theo.mean)/theo.sd
+hist(simu.z, probability = T, breaks = 20,
+     main = 'Possible Sample Proportions Favoring a Candidate(Standardize)',
+     xlab = 'Sample Proportion(Standardized)',
+     col = 'azure3', border = 'white')
+```
+

@@ -1,0 +1,52 @@
+---
+title: "Quiz4"
+author: "b06208001 龔泓愷"
+date: "2018年10月26日"
+output: html_document
+---
+###Q954
+a. 如圖所示   
+```{r}
+p1hat <- 0.51
+n <- 500
+theo.sd <- sqrt(p1hat*(1 - p1hat)/n);theo.sd
+curve(dnorm(x, mean = p1hat, sd = theo.sd), col = 'red', lwd = 1, xlim = c(0.32, 0.7))
+```
+
+b. mean of p1hat - p2hat    
+```{r}
+p2hat <- 0.48
+mean <- p1hat - p2hat;mean
+```
+
+c. standard deviation of p1hat - p2hat    
+```{r}
+sd <- sqrt((p1hat*(1-p1hat)/n) + (p2hat*(1-p2hat)/n));sd
+```
+
+d. 如圖所示
+```{r}
+curve(dnorm(x, mean = mean, sd = sd), col = 'red', lwd = 1, from = -0.5, to =0.5)
+```
+
+e. 如圖所示 
+```{r}
+x =  seq(-1, 1, length.out = 200)
+y = dnorm(x, mean = mean, sd = sd)
+plot(x = x, y = y, col = 'red', type = 'l', xlim = c(-0.5, 0.5))
+region.x = x[x<=0]
+region.y = y[x<=0]
+	
+region.x2 = c(head(region.x,1), region.x, tail(region.x,1))
+region.y2 = c(0, region.y, 0)
+	
+polygon(region.x2, region.y2, col = "red")
+```
+
+f. P(X<=0)
+```{r}
+pnorm(0, mean, sd)
+```
+
+
+
