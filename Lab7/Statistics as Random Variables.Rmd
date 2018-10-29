@@ -42,9 +42,188 @@ curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
 
 #Caculating Z-score
 simu.z = (simu.phat - theo.mean)/theo.sd
+head(simu.z)
 hist(simu.z, probability = T, breaks = 20,
-     main = 'Possible Sample Proportions Favoring a Candidate(Standardize)',
+     main = 'Possible Sample Proportions Favoring a Candidate(Standardized)',
      xlab = 'Sample Proportion(Standardized)',
+     col = 'azure3', border = 'white')
+```
+
+可以看出模擬值與套用公式的理論值頗為接近。    
+
+###Example9.6
+```{r}
+#Sample Many Times
+simu.phat1 = c()
+simu.phat2 = c()
+for (i in 1:1000){#進行1000次模擬
+  x = bino.x(n = 1017, p = 0.37)#每次模擬抽1017女
+  simu.phat1[i] = x
+}
+for (i in 1:1000){#進行1000次模擬
+  x = bino.x(n = 885, p = 0.27)#每次模擬抽885男
+  simu.phat2[i] = x
+}
+
+simu.phat = simu.phat1 - simu.phat2
+
+#Draw
+hist(simu.phat, probability = T, breaks = 20,
+     main = 'Difference in the Death Penaly of Men & Women',
+     xlab = ('Difference in Sample Proportions'),
+     col = 'gold3', border = 'white')
+
+#Calculating simulated and theoretical values
+n1 = 1017
+n2 = 885
+p1 = 0.37
+p2 = 0.27
+simu.mean = mean(simu.phat);simu.mean
+simu.sd = sd(simu.phat);simu.sd
+theo.mean = p1 - p2;theo.mean
+theo.sd = sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2);theo.sd
+
+#Overlapping with a curve(curve用法很特別)
+curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
+
+#Caculating Z-score
+simu.z = (simu.phat - theo.mean)/theo.sd
+head(simu.z)
+hist(simu.z, probability = T, breaks = 20,
+     main = 'Difference in the Death Penaly of Men & Women(Standardized)',
+     xlab = 'Difference in Sample Proportions(Standardized)',
+     col = 'azure3', border = 'white')
+```
+
+可以看出模擬值與套用公式的理論值頗為接近。    
+
+###Example9.8
+```{r}
+#Sample one time
+#Generate random variables(samp：observations，xbar：mean of samples)
+norm.x = function(mu, sigma, n){
+  samp = rnorm(n, mean = mu, sd = sigma)
+  xbar = mean(samp)
+}
+
+#Sample many times
+simu.xbar = c()
+for (i in 1:1000){#進行1000次模擬
+  x = norm.x(mu = 8, sigma = 5, n = 25)
+  simu.xbar[i] = x
+}
+
+#Draw
+hist(simu.xbar, probability = T, breaks = 20,
+     main = 'Hypothetical Mean Weight Loss',
+     xlab = ('Sample Means'),
+     col = 'gold3', border = 'white')
+
+#Calculating simulated and theoretical values
+mu = 8
+n = 25
+sigma = 5 
+simu.mean = mean(simu.xbar);simu.mean
+simu.sd = sd(simu.xbar);simu.sd
+theo.mean = mu;theo.mean
+theo.sd = sigma/sqrt(n);theo.sd
+
+#Overlapping with a curve(curve用法很特別)
+curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
+
+#Caculating Z-score
+simu.z = (simu.xbar - theo.mean)/theo.sd
+head(simu.z)
+hist(simu.z, probability = T, breaks = 20,
+     main = 'Hypothetical Mean Weight Loss(Standardized)',
+     xlab = 'Sample Means(Standardized)',
+     col = 'azure3', border = 'white')
+```
+
+可以看出模擬值與套用公式的理論值頗為接近。 
+
+###Example9.9
+```{r}
+#Sample many times
+simu.dbar = c()
+for (i in 1:1000){#進行1000次模擬
+  x = norm.x(mu = 0, sigma = 7, n = 60)
+  simu.dbar[i] = x
+}
+
+#Draw
+hist(simu.dbar, probability = T, breaks = 20,
+     main = 'Suppose That There Is No "Freshman15"',
+     xlab = ('Possible Values of dbar'),
+     col = 'gold3', border = 'white')
+
+#Calculating simulated and theoretical values
+mu = 0
+n = 60
+sigma = 7 
+simu.mean = mean(simu.dbar);simu.mean
+simu.sd = sd(simu.dbar);simu.sd
+theo.mean = mu;theo.mean
+theo.sd = sigma/sqrt(n);theo.sd
+
+#Overlapping with a curve(curve用法很特別)
+curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
+
+#Caculating Z-score
+simu.z = (simu.dbar - theo.mean)/theo.sd
+head(simu.z)
+hist(simu.z, probability = T, breaks = 20,
+     main = 'Suppose That There Is No "Freshman15"(Standardized)',
+     xlab = 'Possible Values of dbar(Standardized)',
+     col = 'azure3', border = 'white')
+```
+
+可以看出模擬值與套用公式的理論值頗為接近。
+
+###Example9.10
+```{r}
+#Sample many times
+simu.xbar1 = c()
+simu.xbar2 = c()
+for (i in 1:1000){#進行1000次模擬
+  x = norm.x(mu = 107, sigma = 15, n = 87)#每次模擬抽87男
+  simu.xbar1[i] = x
+}
+
+for (i in 1:1000){#進行1000次模擬
+  x = norm.x(mu = 88, sigma = 15, n = 102)#每次模擬抽102女
+  simu.xbar2[i] = x
+}
+
+simu.xbar = simu.xbar1 - simu.xbar2
+
+#Draw
+hist(simu.xbar, probability = T, breaks = 20,
+     main = 'Who Are the Speed Demons?',
+     xlab = ('Difference in Sample Means'),
+     col = 'gold3', border = 'white')
+
+#Calculating simulated and theoretical values
+mu1 = 107
+mu2 = 88
+sigma1 = 15
+sigma2 = 15
+n1 = 87
+n2 = 102
+simu.mean = mean(simu.xbar);simu.mean
+simu.sd = sd(simu.xbar);simu.sd
+theo.mean = mu1 - mu2;theo.mean
+theo.sd = sqrt(sigma1^2/n1 + sigma2^2/n2);theo.sd
+
+#Overlapping with a curve(curve用法很特別)
+curve(dnorm(x, mean = theo.mean, sd = theo.sd), add = T, col = 'red', lwd = 1)
+
+#Caculating Z-score
+simu.z = (simu.xbar - theo.mean)/theo.sd
+head(simu.z)
+hist(simu.z, probability = T, breaks = 20,
+     main = 'Who Are the Speed Demons?(Standardized)',
+     xlab = 'Difference in Sample Means(Standardized)',
      col = 'azure3', border = 'white')
 ```
 
