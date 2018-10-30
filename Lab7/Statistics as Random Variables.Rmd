@@ -150,7 +150,7 @@ abline(v = -1.2)
 abline(v = 2)
 ```
 
-f. We can see that the graph is almost identical for part(e) is just a standardizes verison of part(d)
+f. We can see that the graph is almost identical for part(e) is just a standardized verison of part(d)
 
 ##Function Practice
 
