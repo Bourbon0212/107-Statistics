@@ -89,11 +89,68 @@ As a result, the conditions are met.
 
 ##Q974
 a. Parameter of interest: The mean of the differences.    
-Notations:  mud.    
+Notations:  `mud`.    
 
 b. Statistic of interest: Sample mean of the difference.    
-Notations: dbar.    
+Notations: `dbar`.    
 
+c. Yes.   
+If the students are randomly formed 2 groups using categorical variable(Popcorn Brand), the population will be separate into two independent parts.
+Thus, the parameter of interest and the statistic of sample become `mu1 - mu2` & `xbar1 - xbar2`.   
+
+d. Because the sample size(n = 50) is larger than 30, the sampling distribution of `dbar` is approximately normal.    
+`mean = mud = 10`   
+`s.d(dbar) = 5/sqrt(50) = 0.7071`   
+
+e. 如圖所示
+```{r}
+Unpopped <- seq(7, 13, length.out = 100)
+Density <- dnorm(Unpopped, mean = 10, sd = 0.7071)
+plot(x = Unpopped, y = Density, type = "l", main = 'Mean of the Difference')
+```
+
+f. Yes.   
+On average, the store brand will have 10 fewer unpopped popcorn than name brand.   
+However, if store brand had a higher mean number of unpopped kernels than name brand which means the value of unpopped on the graph of part (e) would be negative, I would be really surprised.    
+
+##Q980    
+a. THe question hear assumed that there is no difference in the mean duration, as a result, the mean of the sampling distributions in sample means is 0.    
+The mean of the sampling distribution of the difference in sample means：`mean = mu1 - mu2 = 0`   
+b. The s.d of the sampling distribution of the difference in sample means：`s.d.(xbar1 - xbar2) = sqrt(2^2/23 + 1.5^2/25) = 0.5137`   
+c. 如圖所示
+```{r}
+curve(dnorm(x, mean = 0, sd = 0.5137), col = 'red', lwd = 1, from = -3, to =3)
+```
+
+d. No.    
+On the basis of the figure I drew in part(c),    
+if the difference in the sample mean durtion of a syptoms is 3.6 days, it's not reasonable    
+for the value isn't even show in the figure.    
+
+e. No.    
+From my point of view, the null hypothesis that there is no difference in the mean duration is not reasonable.
+A random sample from population with an unexpected value shows up, as a result, I can say that this assumption is wrong with certainty.   
+
+##Q9106
+a. `(97 - 100)/15 * sqrt(36) = -1.2`    
+b. `(105 - 100)/15 * sqrt(36) = 2`    
+c. `mean = mu = 100`    
+`s.d.(xbar) = 15/sqrt(36) = 2.5`    
+d. 如圖所示   
+```{r}
+curve(dnorm(x, mean = 100, sd = 2.5), col = 'red', lwd = 1, from = 90, to =110)
+abline(v = 105)
+abline(v = 97)
+```
+
+e. 如圖所示   
+```{r}
+curve(dnorm(x, mean = 0, sd = 1), col = 'red', lwd = 1, from = -3.5, to =3.5)#標準化後的標準差 = 1
+abline(v = -1.2)
+abline(v = 2)
+```
+
+f. We can see that the graph is almost identical for part(e) is just a standardizes verison of part(d)
 
 ##Function Practice
 
