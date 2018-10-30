@@ -4,6 +4,97 @@ author: "b06208001 龔泓愷"
 date: "2018年10月26日"
 output: html_document
 ---
+##Q942
+a. Explaination:    
+**Condition1:** A fixed population or a repeatable situation.   
+According to the question, the probability of members utilize the service of an automobile club which is 5% is known, so the population actually exists with known proportion(p = 0.05) of those that have a trait(utilize club service).    
+**Condition2:** Random sample collected from the fixed population or a repeatable situation with independent outcomes.    
+A random sample(n = 400) is selected from the population(club).   
+**Condition3:** Large enough sample size or number of trials.    
+Both np & n(1-p) > 10.    
+
+b. n = 400, p = 0.05    
+
+c. As I mentioned in part(a), the sampling distribution of phat is **approximately normally** with `mean = p = 0.05`.    
+`p` is the population proportion, and population proportion is the same as the mean value of the sampling distribution of phat.   
+`s.d.(phat) = sqrt(p(1-p)/n) = 0.0109`.   
+
+d. `phat = 28/400 = 0.07`
+```{r}
+pnorm(0.07, mean = 0.05, sd = 0.0109, lower.tail = F)
+```
+
+##Q954
+a. 如圖所示   
+```{r}
+p1 <- 0.51
+n <- 500
+theo.sd <- sqrt(p1*(1 - p1)/n);theo.sd
+curve(dnorm(x, mean = p1, sd = theo.sd), col = 'red', lwd = 1, xlim = c(0.32, 0.7))
+```
+
+b. mean of p1hat - p2hat    
+```{r}
+p2 <- 0.48
+mean <- p1 - p2;mean
+```
+
+c. standard deviation of p1hat - p2hat    
+```{r}
+sd <- sqrt((p1*(1-p1)/n) + (p2*(1-p2)/n));sd
+```
+
+d. 如圖所示
+```{r}
+curve(dnorm(x, mean = mean, sd = sd), col = 'red', lwd = 1, from = -0.5, to =0.5)
+```
+
+e. 如圖所示 
+```{r}
+x =  seq(-1, 1, length.out = 200)
+y = dnorm(x, mean = mean, sd = sd)
+plot(x = x, y = y, col = 'red', type = 'l', xlim = c(-0.5, 0.5))
+region.x = x[x<=0]
+region.y = y[x<=0]
+	
+region.x2 = c(head(region.x,1), region.x, tail(region.x,1))
+region.y2 = c(0, region.y, 0)
+	
+polygon(region.x2, region.y2, col = "red")
+```
+
+f. P(X<=0)
+```{r}
+pnorm(0, mean, sd)
+```
+
+##Q968
+a. In the picture below, we can see that if we superimpose a normal distribution on the fact, a lot of **negative** values will show up, which is impossible in the real life.    
+As a result, we have to cut the part of the graph that has values lower than 0, and then we will have the graph which is skewed right.    
+We can now conclude that many values fall between 0 and 100, and a large spread of rare values is higher than 100 causing the right-skewed distribution.     
+
+```{r}
+Miles <- c(-90:250)
+Density <- dnorm(Miles, mean = 80, sd = 50)
+plot(x = Miles, y = Density, type = "l", main = 'Number of Miles Customers Put on Rental Cars per Day')
+```
+
+b. Because the sample size is larger than 30(n = 365), the sample distribution of the sample mean is approximately normal although the number of miles per day is skewed-right(Due to central limit theorm).    
+
+c. The mean number of miles multiply by 365 will be the total number of miles which is approximately normal distribution as well.   
+
+d. Yes.     
+Although the population of the measurement is not bell-shaped, the sample size is large enough(n = 365).    
+As a result, the conditions are met.   
+
+##Q974
+a. Parameter of interest: The mean of the differences.    
+Notations:  mud.    
+
+b. Statistic of interest: Sample mean of the difference.    
+Notations: dbar.    
+
+
 ##Function Practice
 
 ###Example9.4
@@ -178,7 +269,8 @@ hist(simu.z, probability = T, breaks = 20,
      col = 'azure3', border = 'white')
 ```
 
-可以看出模擬值與套用公式的理論值頗為接近。
+題目假設mud = 0，可以看出模擬值與套用公式的理論值頗為接近。   
+然而某次採樣dbar高達4.2，在3個標準差範圍之外，可以猜測mud = 0的假設可能是有誤。    
 
 ###Example9.10
 ```{r}
@@ -186,7 +278,7 @@ hist(simu.z, probability = T, breaks = 20,
 simu.xbar1 = c()
 simu.xbar2 = c()
 for (i in 1:1000){#進行1000次模擬
-  x = norm.x(mu = 107, sigma = 15, n = 87)#每次模擬抽87男
+  x = norm.x(mu = 88, sigma = 15, n = 87)#每次模擬抽87男
   simu.xbar1[i] = x
 }
 
@@ -204,8 +296,8 @@ hist(simu.xbar, probability = T, breaks = 20,
      col = 'gold3', border = 'white')
 
 #Calculating simulated and theoretical values
-mu1 = 107
-mu2 = 88
+mu1 = 88#題目沒有給
+mu2 = 88#題目沒有給
 sigma1 = 15
 sigma2 = 15
 n1 = 87
@@ -227,3 +319,5 @@ hist(simu.z, probability = T, breaks = 20,
      col = 'azure3', border = 'white')
 ```
 
+題目假設mu1 - mu2 = 0，可以看出模擬值與套用公式的理論值頗為接近。   
+然而某次採樣的樣本平均差異高達19，遠在3個標準差範圍之外，可以猜測mu1 - mu2 = 0假設可能有誤。    
