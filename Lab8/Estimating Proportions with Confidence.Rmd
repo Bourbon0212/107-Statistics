@@ -48,7 +48,7 @@ c. `2 * sqrt(0.54 * 0.46 / 501) = 0.0445`
 The intervals are almost identical, just the one in part(c) seems a little narrower.     
 
 d.
-Conservative CI：[0.05 - 0.05, 0.05 + 0.05] = **[0, 0.1]**
+Conservative CI：[0.05 - 0.05, 0.05 + 0.05] = **[0, 0.1]**      
 Precise CI：`2 * sqrt(0.05 * 0.95 / 501) = 0.0195`    
 [0.05 - 0.0195, 0.05 + 0.0195] = **[0.0305, 0.0695]**   
 The Precise CI is **much narrower** than the Conservative CI.   
