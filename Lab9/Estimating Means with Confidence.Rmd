@@ -1,0 +1,80 @@
+---
+title: "Estimating Means with Confidence"
+author: "b06208001 龔泓愷"
+date: "2018年11月9日"
+output: html_document
+---
+##R Function Practice   
+```{r}
+Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
+  #成對樣本只需要一個n
+  prob <- (1 - conf.level)/2#雙尾信賴區間
+  t.value <- qt(prob, df = n - 1, lower.tail = F)#找T-Value
+  
+  dbar = c()
+  se.d = c()
+  mud = mu1 - mu2
+  
+  CI.half = c()
+  CI.up = c()
+  CI.lower = c()
+  Check = c()#有沒有包含理論值的mud
+  
+  #取樣M次，每次n人
+  for (i in 1:m) {
+    x1 <- rnorm(n, mean = mu1, sd = sd1)
+    x2 <- rnorm(n, mean = mu2, sd = sd2)
+    dbar[i] <- mean(x1 - x2)
+    se.d[i] <- sd(x1 - x2)/sqrt(n)
+    
+    #Calculate CIs
+    CI.half[i] <- t.value * se.d[i]
+    CI.up[i] <- dbar[i] + CI.half[i]
+    CI.lower[i] <- dbar[i] - CI.half[i]
+    
+    if (CI.up[i] > mud & CI.lower[i] < mud){ 
+      Check[i] <- 1 
+    }else {
+      Check[i] <- 0
+    }
+  }
+  
+  sd = sd(dbar)
+  
+  plot(c(CI.up, CI.lower), type = 'n', #n是不畫圖，給空框架
+       pch = 19, xlim = c(1, m), xlab = 'Trial',
+       ylab = expression(dbar))
+  
+  abline(h = mud, col = 'blue')
+  
+  #Check whether each CI captures the mud
+  for (i in 1:m){
+    if (Check[i] == 1) {
+      points(i, dbar[i], col = 'green', pch = 10)
+      points(i, CI.up[i], col = 'green', pch = 20)
+      points(i, CI.lower[i], col = 'green', pch = 20)
+      lines(c(i, i), c(CI.lower[i], CI.up[i]), col = 'green', pch = 19)
+    }else{
+      points(i, dbar[i], col = 'red', pch = 10)
+      points(i, CI.up[i], col = 'red', pch = 20)
+      points(i, CI.lower[i], col = 'red', pch = 20)
+      lines(c(i, i), c(CI.lower[i], CI.up[i]), col = 'red', pch = 19)
+    }
+  }
+  
+  title('Simulating Confidence Interval for mud')
+  
+  legend('bottomright', cex = 0.6, bty = 'n', ncol = 2,
+         c('Captured', 'Not Captured'),
+         fill = c('green', 'red'))
+  
+  NO.Captured <- m-sum(Check)
+  RESULT <- list(Trial = m, Sample.Size = n,
+                 dbar = mud, Confidence = conf.level,
+                 NO.Captured = NO.Captured)
+  
+  return(RESULT)
+}
+Simd_CI(1000, 80, 90, 10, 5, 100, 0.95)
+```
+

@@ -1,0 +1,53 @@
+---
+title: "Quiz6"
+author: "b06208001 龔泓愷"
+date: "2018年11月9日"
+output: html_document
+---
+##1132
+Group1：Taking Zinc    
+Group2：Taking Placebo
+```{r}
+n1 = 25;n2 = 23
+mu1 = 4.5; mu2 = 8.1
+sd1 = 1.6/sqrt(25); sd2 = 1.8/sqrt(23)
+t <- qt((1 - 0.95)/2, df = 24, lower.tail = F);t
+```
+a. 
+```{r}
+mu1 - t * sd1; mu1 + t * sd1
+```
+
+**[3.8396, 5.1604]**
+
+b.
+```{r}
+mu2 - t * sd2; mu2 + t * sd2
+```
+
+**[7.3254, 8.8746]**    
+
+c.
+```{r}
+plot(c(0,3),type='n',xlim=c(3,9),xlab='Mean Duration of Symptoms',ylab='',axes=F,
+     main='Comparsion of the two confidence interval')
+
+lines(c(3.8396,5.1604),c(2,2))
+text(6.9,2,labels='Zinc')
+lines(c(mu1 - t * sd1, mu1 - t * sd1),c(1.95,2.05))
+lines(c(mu1, mu1),c(1.95,2.05))
+lines(c(mu1 + t * sd1, mu1 + t * sd1),c(1.95,2.05))
+
+lines(c(7.3254, 8.8746),c(1,1))
+text(6.3,1,labels='Placebo')
+lines(c(mu2 - t * sd2, mu2 - t * sd2),c(0.95,1.05))
+lines(c(mu2, mu2),c(0.95,1.05))
+lines(c(mu2 + t * sd2,mu2 + t * sd2),c(0.95,1.05))
+
+axis(1)
+```
+
+d. Yes.   
+Because the confidence intervals do not overlap.    
+
+e. Since the sample size in each group is not large enough, it is better to decided that the data was sampled from a normal curve population.   
