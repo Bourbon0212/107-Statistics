@@ -4,6 +4,140 @@ author: "b06208001 龔泓愷"
 date: "2018年11月9日"
 output: html_document
 ---
+##Q1118
+a. **0.2**    
+The standard error of the mean of foot lenghs of women is smaller than thoe one of men because the sample size is **LARGER**.   
+```{r}
+n1 = 64; mu1 = 27.5; sd1 = 2
+n2 = 100; mu2 = 24; sd2 = 2
+se2 = sd2/sqrt(n2); se2
+```
+
+b. **0.3202**
+```{r}
+mud = mu1 - mu2;mud
+sed = sqrt(sd1^2/n1 + sd2^2/n2);sed
+```
+
+##Q1132
+Group1：Taking Zinc    
+Group2：Taking Placebo
+```{r}
+n1 = 25;n2 = 23
+mu1 = 4.5; mu2 = 8.1
+sd1 = 1.6/sqrt(25); sd2 = 1.8/sqrt(23)
+t <- qt((1 - 0.95)/2, df = 24, lower.tail = F);t
+```
+a. **[3.8396, 5.1604]**
+```{r}
+mu1 - t * sd1; mu1 + t * sd1
+```
+
+b. **[7.3254, 8.8746]** 
+```{r}
+mu2 - t * sd2; mu2 + t * sd2
+```
+
+c.
+```{r}
+plot(c(0,3),type='n',xlim=c(3,9),xlab='Mean Duration of Symptoms',ylab='',axes=F,
+     main='Comparsion of the two confidence interval')
+
+lines(c(3.8396,5.1604),c(2,2))
+text(6.9,2,labels='Zinc')
+lines(c(mu1 - t * sd1, mu1 - t * sd1),c(1.95,2.05))
+lines(c(mu1, mu1),c(1.95,2.05))
+lines(c(mu1 + t * sd1, mu1 + t * sd1),c(1.95,2.05))
+
+lines(c(7.3254, 8.8746),c(1,1))
+text(6.3,1,labels='Placebo')
+lines(c(mu2 - t * sd2, mu2 - t * sd2),c(0.95,1.05))
+lines(c(mu2, mu2),c(0.95,1.05))
+lines(c(mu2 + t * sd2,mu2 + t * sd2),c(0.95,1.05))
+
+axis(1)
+```
+
+##Q1150 
+a. **[0.8172, 2.7828]**   
+The interval tells us that we are of 95% confdence that the mean of difference ideal & actual heights of women aged 18~29 is between 0.8172 & 2.7828 inches.   
+```{r}
+n = 20;mu1 = 66.7; mu2 = 64.9; dbar = 1.8; sd = 2.1
+se = sd/sqrt(20);se
+t = qt((1 - 0.95)/2, df = 19, lower.tail = F)
+CI.up = dbar + t * se; CI.up
+CI.low = dbar - t* se; CI.low
+```
+
+b. Since the sample size is relatively small, it should meet condition1 for calculation in part(a)   
+
+c. 'All women' in the sentence is wrong.    
+It should be **on average**, women aged 18~29 would like to be taller.   
+
+d. NO   
+The condition on page428 is not appropriate for this condition, since it requires a larger sample size.   
+
+##Q1160
+a. Unpooled:**[-1.7274, 15.0607]**   
+The data is approximately bell-shaped without skewness and outliers although the sample size isn't large enough.     
+Therefore, computing the 95% confidence interval is justified.   
+```{r}
+Group1 <- c(72,84,66,72,62,84,76,60);n1 = 8;mu1 = mean(Group1);sd1 = sd(Group1)
+Group2 <- c(62,72,60,63,75,64,60,52,64,80,68,64);n2 = 12;mu2 = mean(Group2);sd2 = sd(Group2)
+t.test(Group1, Group2, alternative = 'two.sided', var.equal = F, paired = F, conf.level = 0.95)
+```
+
+b. Pooled:**[-1.1652, 14.4985]**
+```{r}
+sp = sqrt(((n1-1)*sd1^2 + (n2-1)*sd2^2)/(n1+n2-2));sp
+se.pooled = sp*sqrt(1/n1 + 1/n2);se.pooled
+df.pooled = n1 + n2 - 2;df.pooled
+t <- qt((1-0.95)/2, df = df.pooled, lower.tail = F);t
+CI.up = (mu1 - mu2) + t * se.pooled;CI.up
+CI.low = (mu1 - mu2) - t * se.pooled;CI.low
+
+#T-test var equal決定是不是pooled
+t.test(Group1, Group2, alternative = 'two.sided', var.equal = T, paired = F, conf.level = 0.95)
+```
+
+c. Since the boudaries differ by about 0.6, we can easily notice that the two intervals are not very similar.     
+The unpooled one is probably more accurate since the se.pooled is weighted average.   
+
+##Q1178
+a. **6.4106 seconds**
+```{r}
+n1 = 16;mu1 = 113.75;sd1 = 22.64#Alcohol
+n2 = 16;mu2 = 99.87;sd2 = 12.04#Placebo
+se = sqrt(sd1^2/n1 + sd2^2/n2);se
+```
+
+b. **[0.5852, 27.1748]**
+```{r}
+t <- qt((1-0.95)/2, df = 22, lower.tail = F);t
+CI.up = (mu1 - mu2) + t * se;CI.up
+CI.low = (mu1 - mu2) - t * se;CI.low
+```
+
+c. On the basis of part(b), we have 95% confidence to say that the populationmeans for the two groups are **different** since the intervals do not cover 0.   
+
+d. It is reasonable to assume that both-populations are bell-shaped beacause most people take about the same amount of time to read out all the colours.       
+Therefore, computing the 95% confidence is justified although the samplee size is not large enough.  
+
+##Q1180
+a. **Paired Data**
+It is better to use paired data because two variables of interest are measured for each individual.   
+
+b. A rnadom order is important because each individual might learn something in the first measurement and improve one's performance in the second measurement.   
+
+c. **[-0.0402, 2.1735]**
+```{r}
+Dominant = c(22,19,18,17,15,16,16,20,17,15,17,17,14,20,26)
+Undominant = c(18,15,13,16,17,16,14,16,20,15,17,17,16,18,25)
+t.test(Dominant, Undominant, alternative = "two.sided", paired = T, var.equal = F, conf.level = 0.90)#paired = T成對資料與x = diff, y = NULL結果一樣
+```
+
+d. Since the intervals cover 0, we can not conclude whether dexterity is better for the dominant hand.    
+
 ##R Function Practice   
 ```{r}
 Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
@@ -39,7 +173,7 @@ Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
     }
   }
   
-  sd = sd(dbar)
+  sd = sd(x1 - x2)#sqrt(var(x1) + var(x2)) #兩群體差的標準差
   
   plot(c(CI.up, CI.lower), type = 'n', #n是不畫圖，給空框架
        pch = 19, xlim = c(1, m), xlab = 'Trial',
@@ -70,7 +204,9 @@ Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
   
   NO.Captured <- m-sum(Check)
   RESULT <- list(Trial = m, Sample.Size = n,
-                 dbar = mud, Confidence = conf.level,
+                 Population.Differences.Mean = mud, 
+                 Population.Differences.sd  = sd,
+                 Confidence = conf.level,
                  NO.Captured = NO.Captured)
   
   return(RESULT)
