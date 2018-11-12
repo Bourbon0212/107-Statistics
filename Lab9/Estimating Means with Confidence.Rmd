@@ -173,8 +173,6 @@ Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
     }
   }
   
-  sd = sd(x1 - x2)#sqrt(var(x1) + var(x2)) #兩群體差的標準差
-  
   plot(c(CI.up, CI.lower), type = 'n', #n是不畫圖，給空框架
        pch = 19, xlim = c(1, m), xlab = 'Trial',
        ylab = expression(dbar))
@@ -205,7 +203,7 @@ Simd_CI <- function (n, mu1, mu2, sd1, sd2, m, conf.level){
   NO.Captured <- m-sum(Check)
   RESULT <- list(Trial = m, Sample.Size = n,
                  Population.Differences.Mean = mud, 
-                 Population.Differences.sd  = sd,
+                 Population.Differences.sd  = sqrt(sd1^2 + sd2^2),
                  Confidence = conf.level,
                  NO.Captured = NO.Captured)
   
