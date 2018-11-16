@@ -1,0 +1,44 @@
+---
+title: "Testing Hypotheses about Proportions"
+author: "b06208001 龔泓愷"
+date: "2018年11月16日"
+output: html_document
+---
+```{r}
+data <- load("UCBAdmissions.Rdata")#讀取資料
+head(A)
+x = xtabs(Freq ~ Admit + Gender + Dept, data = A);x
+dept <- c('A', 'B', 'C', 'D', 'E', 'F')
+
+for (i in 1:6){
+  #計算各性別的錄取率
+  Male_Admitted = x[1,1,i]#x[Row, Col, Table]
+  Male_Total = x[1,1,i] + x[2,1,i]
+  Female_Admitted = x[1,2,i]
+  Female_Total = x[1,2,i] + x[2,2,i]
+  
+  Male = Male_Admitted / Male_Total 
+  Female = Female_Admitted / Female_Total
+  Total = (Male_Admitted + Female_Admitted)/(Male_Total + Female_Total)
+  
+  #計算標準誤
+  se = sqrt(Total * (1 - Total) * (1/Male_Total + 1/Female_Total))
+  
+  #計算z_value、p_value
+  z_value = ((Male - Female) - 0) / se
+  if (z_value <= 0){
+    p_value = (1 - pnorm(z_value, lower.tail = F))*2 #雙尾檢定
+  } else {
+    p_value = (1 - pnorm(z_value))*2 #雙尾檢定
+  }
+  
+  
+  #檢定
+  if (abs(p_value) <= 0.05 ){
+    CHECK = 'Reject Null Hypothesis'
+  } else {
+    CHECK = 'Cannot Reject Null Hypothesis'
+  }
+print(paste('Dept.',dept[i],'：P-Value = ',round(p_value,5), CHECK))
+}
+```

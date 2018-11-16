@@ -1,0 +1,25 @@
+---
+title: "Quiz7"
+author: "b06208001 龔泓愷"
+date: "2018年11月16日"
+output: html_document
+---
+##Q1254
+**Step1**   
+H0：P = 0.5    
+H1 ：P != 0.5   
+
+**Step2 & 3**   
+Both np0 & n(1-p) > 10, so we can proceed with the test.   
+```{r}
+x = 103; n = 215
+phat = x/n;phat
+
+z_value = (phat - 0.5)/sqrt(0.5*(1-0.5)/n);z_value
+p_value = pnorm(z_value)*2;p_value
+```
+
+**Step4 & 5**   
+Since the p-value is not less than 0.05, we cannot reject the null hypothesis.    
+
+This means that we cannot conclude that the proportion of college students whose feet are the same length is different than 0.5 becauese we also cannot reject the possibility that this proportion might be 0.5.
