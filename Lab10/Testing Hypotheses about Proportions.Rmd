@@ -4,6 +4,121 @@ author: "b06208001 龔泓愷"
 date: "2018年11月16日"
 output: html_document
 ---
+##Q1214    
+a.  
+H0：15% of the population of that region has the certain unique genetic trait.   
+Ha：The percentage of the population of that has the curtain unique genetic trait is **different from 15%**    
+H0：p = 0.15    
+Ha：p != 0.15   
+
+b. 
+H0：30% of the candies are red.     
+Ha：The percentage of red candies is **less than 30%**.       
+H0：p = 0.3   
+Ha：p < 0.3   
+
+##Q1228    
+a. 
+H0：The probability of the physician being right is 50%.      
+Ha：The probability of the physician being right is more than 50%.      
+
+b. p-hat = 6/10 = 0.6   
+
+c. Because the p-value is quite large, we cannot reject the null hypothesis.    
+However, this **doesn't mean** that the we accept the null hypothesis(skeptic is right).    
+We can only say that we **don't have enough evidence** to rule out the possibility that the skeptic is right.   
+
+d. Since the p-value is much larger than the significance level, we **cannot reject** the null hypothesis.    
+In other words, we cannot conclude that the probability of the physician being right is more than 50%, becaues we cannot reject the hypothesis that he is just guessing.
+
+e. In order to convince the skeptic, the physician should **increase the sample size**.     
+By doing so, the standard error decreases, causing the test statistic becomes larger and lower the p-value which is easier to reject the null hypothesis.    
+
+##Q1236    
+a. The null hypothesis is true while we concluded that alternative hypothesis is correct.    
+>> **Type 1 Error**   
+
+b. The alternative hypothesis is true while we cannot reject the null hypothesis.   
+>> **Type 2 Error**   
+
+c. The null hypothesis is not rejected while the alternative hypothesis is correct.   
+>> **Type 2 Error**   
+
+d. The null hypothesis is rejected while the null hypothesis is true.   
+>> **Type 1 Error**   
+
+##Q1254
+**Step1**   
+H0：P = 0.5    
+H1 ：P != 0.5   
+
+**Step2 & 3**   
+Both np0 & n(1-p) > 10, so we can proceed with the test.   
+```{r}
+x = 103; n = 215
+phat = x/n;phat
+
+z_value = (phat - 0.5)/sqrt(0.5*(1-0.5)/n);z_value
+p_value = pnorm(z_value)*2;p_value
+```
+
+**Step4 & 5**   
+Since the p-value is not less than 0.05, we cannot reject the null hypothesis.    
+
+This means that we cannot conclude that the proportion of college students whose feet are the same length is different than 0.5 becauese we also cannot reject the possibility that this proportion might be 0.5.    
+
+##Q1270   
+a.  
+H0：p1 = p2    
+Ha：p1 > p2
+```{r}
+#men
+n1 = 493; p1 = 0.51
+#women
+n2 = 538; p2 = 0.38
+
+#calculating 
+phat = (n1*p1 + n2*p2) / (n1 + n2);phat
+
+null.se = sqrt(phat*(1-phat)/n1 + phat*(1-phat)/n2);null.se
+
+z_value = ((p1 - p2) - 0)/null.se;z_value
+
+p_value = pnorm(z_value, lower.tail = F);p_value
+```
+Since the p_value is much less than significance level, we have enough evidence to **reject the null hypothesis**.     
+We can now conclude that the proportion of men who thought that the way parents raise their childeren was the primary cause of gun violence in America is greater than the proportion of women.   
+
+b. **No.**    
+The test in 12.3 cannot be carried out since there is only one random sample of 493 men in this case.   
+
+##Q1284   
+a. 
+```{r}
+n = 400; p0 = 0.2; phat = 0.25
+null.se = sqrt(p0*(1-p0)/n)
+z_value = (phat - p0)/null.se;z_value
+```
+b. 
+```{r}
+p_value = pnorm(z_value, lower.tail = F);p_value
+```
+
+c. For a test with a significance level = 0.05, we can reject the null hypothesis which assumued that population proportion is 0.2 and conclude that Population proportion is higher than 0.2 since the p_value is smaller than the alpha we use.    
+
+d. 
+```{r}
+#change n from 400 to 100
+n = 100
+null.se = sqrt(p0*(1-p0)/n)
+z_value = (phat - p0)/null.se;z_value
+p_value = pnorm(z_value, lower.tail = F);p_value
+```
+
+e. It is obvious that increasing the sample size also increases the chance to obtaion the statistical significance.       
+Because the larger the sample size is, the larger the test statistic causing the smaller p_value to touch the threshold of the statistical significance.     
+
+##R Function Practice
 ```{r}
 data <- load("UCBAdmissions.Rdata")#讀取資料
 head(A)
