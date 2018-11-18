@@ -116,7 +116,7 @@ p_value = pnorm(z_value, lower.tail = F);p_value
 ```
 
 e. It is obvious that increasing the sample size also increases the chance to obtaion the statistical significance.       
-Because the larger the sample size is, the larger the test statistic causing the smaller p_value to touch the threshold of the statistical significance.     
+Because the larger the sample size is, the larger the test statistic is which cause the smaller p_value to touch the threshold of the statistical significance.     
 
 ##R Function Practice
 ```{r}
