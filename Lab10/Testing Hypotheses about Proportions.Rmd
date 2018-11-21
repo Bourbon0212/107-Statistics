@@ -149,7 +149,7 @@ for (i in 1:6){
   
   
   #檢定
-  if (abs(p_value) <= 0.05 ){
+  if (abs(p_value) <= 0.01 ){
     CHECK = 'Reject Null Hypothesis'
   } else {
     CHECK = 'Cannot Reject Null Hypothesis'
