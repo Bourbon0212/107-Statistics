@@ -174,8 +174,9 @@ By doing so, the standard error decreases, causing the test statistic becomes la
 <p><strong>Step1</strong><br />
 H0：P = 0.5<br />
 H1 ：P != 0.5</p>
-<p><strong>Step2 &amp; 3</strong><br />
+<p><strong>Step2</strong><br />
 Both np0 &amp; n(1-p) &gt; 10, so we can proceed with the test.</p>
+<p><strong>Step3</strong></p>
 <pre class="r"><code>x = 103; n = 215
 phat = x/n;phat</code></pre>
 <pre><code>## [1] 0.4790698</code></pre>
@@ -183,16 +184,21 @@ phat = x/n;phat</code></pre>
 <pre><code>## [1] -0.6137949</code></pre>
 <pre class="r"><code>p_value = pnorm(z_value)*2;p_value</code></pre>
 <pre><code>## [1] 0.5393509</code></pre>
-<p><strong>Step4 &amp; 5</strong><br />
+<p><strong>Step4</strong><br />
 Since the p-value is not less than 0.05, we cannot reject the null hypothesis.</p>
-<p>This means that we cannot conclude that the proportion of college students whose feet are the same length is different than 0.5 becauese we also cannot reject the possibility that this proportion might be 0.5.</p>
+<p><strong>Step5</strong><br />
+This means that we cannot conclude that the proportion of college students whose feet are the same length is different than 0.5 becauese we also cannot reject the possibility that this proportion might be 0.5.</p>
 </div>
 <div id="q1270" class="section level2">
 <h2>Q1270</h2>
 <ol style="list-style-type: lower-alpha">
-<li>H0：p1 = p2<br />
+<li><strong>Step1</strong><br />
+H0：p1 = p2<br />
 Ha：p1 &gt; p2</li>
 </ol>
+<p><strong>Step2</strong> In Q1269, it said that these respondents constituted random samples of U.S. men and women at that time.<br />
+Hence, all necessary data conditons are met.</p>
+<p><strong>Step3</strong></p>
 <pre class="r"><code>#men
 n1 = 493; p1 = 0.51
 #women
@@ -207,7 +213,9 @@ phat = (n1*p1 + n2*p2) / (n1 + n2);phat</code></pre>
 <pre><code>## [1] 4.1984</code></pre>
 <pre class="r"><code>p_value = pnorm(z_value, lower.tail = F);p_value</code></pre>
 <pre><code>## [1] 1.34404e-05</code></pre>
-<p>Since the p_value is much less than significance level, we have enough evidence to <strong>reject the null hypothesis</strong>.<br />
+<p><strong>Step4</strong><br />
+Since the p_value is much less than significance level, we have enough evidence to <strong>reject the null hypothesis</strong>.<br />
+<strong>Step5</strong><br />
 We can now conclude that the proportion of men who thought that the way parents raise their childeren was the primary cause of gun violence in America is greater than the proportion of women.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><strong>No.</strong><br />

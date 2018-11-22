@@ -52,8 +52,10 @@ d. The null hypothesis is rejected while the null hypothesis is true.
 H0：P = 0.5    
 H1 ：P != 0.5   
 
-**Step2 & 3**   
+**Step2**   
 Both np0 & n(1-p) > 10, so we can proceed with the test.   
+
+**Step3**   
 ```{r}
 x = 103; n = 215
 phat = x/n;phat
@@ -62,15 +64,23 @@ z_value = (phat - 0.5)/sqrt(0.5*(1-0.5)/n);z_value
 p_value = pnorm(z_value)*2;p_value
 ```
 
-**Step4 & 5**   
+**Step4**   
 Since the p-value is not less than 0.05, we cannot reject the null hypothesis.    
 
+**Step5**   
 This means that we cannot conclude that the proportion of college students whose feet are the same length is different than 0.5 becauese we also cannot reject the possibility that this proportion might be 0.5.    
 
 ##Q1270   
 a.  
+**Step1**   
 H0：p1 = p2    
-Ha：p1 > p2
+Ha：p1 > p2   
+
+**Step2**
+In Q1269, it said that these respondents constituted random samples of U.S. men and women at that time.   
+Hence, all necessary data conditons are met.    
+
+**Step3**
 ```{r}
 #men
 n1 = 493; p1 = 0.51
@@ -86,7 +96,9 @@ z_value = ((p1 - p2) - 0)/null.se;z_value
 
 p_value = pnorm(z_value, lower.tail = F);p_value
 ```
+**Step4**   
 Since the p_value is much less than significance level, we have enough evidence to **reject the null hypothesis**.     
+**Step5**   
 We can now conclude that the proportion of men who thought that the way parents raise their childeren was the primary cause of gun violence in America is greater than the proportion of women.   
 
 b. **No.**    
