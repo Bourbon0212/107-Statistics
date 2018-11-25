@@ -1,0 +1,238 @@
+---
+title: "Testing Hypotheses about Means"
+author: "b06208001 龔泓愷"
+date: "2018年11月25日"
+output: html_document
+---
+##Q1324   
+a.    
+
+**Step1**   
+H0：mu = 72，Penn State men have a mean of 72.    
+Ha：mu != 72，Penn State men do not have a mean of 72.    
+
+**Step2**   
+Since it assume the sample is representative of all Penn State men,       
+and the sample size(n = 57) is **large enough**,
+the conditions to carry out the one-sample t-test for mean are met.        
+```{r}
+n = 57; mu = 72; x_bar = 70.42; sd = 9.95
+s.e. = sd/sqrt(n);s.e.
+df = n - 1;df
+t_value = (x_bar - mu)/s.e.;t_value
+```
+
+**Step3**   
+```{r}
+p_value = pt(t_value, df = df)*2;p_value#Two-tailed
+```
+
+**Step4**   
+I'll assume that the significance level here is 0.05(alpha = 0.05).   
+Since the p-value is much greater than alpha, we cannot reject the null hypothesis in favor of the alternative hypothesis.   
+
+**Step5**   
+Although the sample data is in the right direction of the mean,     
+the sample didn't provide enough sample to reject the null hypothesis.    
+Since I cannot reject the null hypothesis,    
+I cannot conclude that the Penn State men do not have a mean of 72    
+because I cannot reject the possibility that Penn State men have a mean of 72.   
+
+
+b.  
+
+**Step1**   
+H0：mu = 72，Penn State women have a mean of 72.    
+Ha：mu != 72，Penn State women do not have a mean of 72.    
+
+**Step2**   
+Since it assume the sample is representative of all Penn State women,       
+and the sample size(n = 35) is **large enough**,
+the conditions to carry out the one-sample t-test for mean are met.  
+
+```{r}
+n = 35; mu = 72; x_bar = 76.9; sd = 11.6
+s.e. = sd/sqrt(n);s.e.
+df = n - 1;df
+t_value = (x_bar - mu)/s.e.;t_value
+```
+
+**Step3**   
+```{r}
+p_value = pt(t_value, df = df, lower.tail = F)*2;p_value#Two-tailed
+```
+
+**Step4**   
+I'll assume that the significance level here is 0.05(alpha = 0.05).   
+Since the p-value is much smaller than alpha, we can reject the null hypothesis in favor of the alternative hypothesis.   
+
+**Step5**   
+The sample here is statistically significant.   
+The sample here provides sufficient evidence to reject the null hypothesis.       
+Hence, I can conclude that Penn State women have a mean which is different from 72.    
+
+
+c. From part(a) and part(b), we can conclude that the mean pulse rate is different from 72 for Penn State women.   
+However, for Penn State men, we cannot make that conclusion since we cannot reject the possibility that the mean rate is 72.        
+
+##Q1338   
+a. 
+**Step1**   
+H0：Dominant hand - Non-dominant hand = 0     
+H1：Dominant hand - Non-dominant hand > 0   
+```{r}
+diff = c(4,4,5,1,-2,0,2,4,-3,0,0,0,-2,2,1)#Dominant hand - Non-dominant hand
+```
+
+b. 
+**Step2**   
+The sample size is not large enough, so we need to check its skewness and outliers.    
+Here is the boxplot for the sample data:    
+```{r}
+boxplot(diff)
+```
+
+There isn't much noticeable skewness or any outliers.   
+Hence, the conditions to carry out the one-sample t-test for mean are met.     
+```{r}
+n = 15;dbar = mean(diff);sd = sd(diff)
+s.e. = sd/sqrt(n);s.e.
+df = n - 1;df
+t_value = (dbar - 0)/s.e.;t_value
+```
+
+**Step3**   
+```{r}
+p_value = pt(t_value, df = df, lower.tail = F);p_value
+```
+c.    
+
+**Step4c**   
+Since the p-value is larger than the significance level(alpha = 0.05),    
+We cannot reject the null hypothesis in foavor of the alternative hypothesis.   
+
+**Step5c**    
+Although the sample data is in the right direction of the mean,     
+the sample didn't provide enough sample to reject the null hypothesis.    
+Since I cannot reject the null hypothesis,    
+I cannot conclude that the dexerity of their dominant hands is better than the one of their non-dominant hands     
+because I cannot reject the possibility that the dexerity of their dominant hands and the one of their non-dominant hands are the same.       
+
+d.    
+
+**Step4d**    
+Since the p-value is smaller than the significance level(alpha = 0.1),    
+We can reject the null hypothesis in foavor of the alternative hypothesis.   
+
+**Step5d**    
+The sample here is statistically significant.   
+The sample here provides sufficient evidence to reject the null hypothesis.       
+Hence, I can conclude that the dexerity of their dominant hands is better than the one of their non-dominant hands.      
+
+e. 
+Using the data sample here, we can approximately conclude that dexerity of their dominant hands is better than the one of their non-dominant hands.     
+However, by making this conclusion, there is a risk of 5.59%(p-value) that we might be wrong in our conclusion.    
+
+##Q1358   
+a.  
+
+**Step1**   
+H0：the mean number of hours of sleep for the two populations of students are equal.    
+Ha：the mean number of hours of sleep for the two populations of students are not equal.    
+
+**Step2a**   
+It assumed that theses classes represent a random sample.   
+And we can see the plot in part(b) shows that the data from both samples are approximately bell-shaped.   
+Hence, the conditions to carry out the two-sample t-test for mean are met.    
+
+*UNPOOLED*
+```{r}
+n1 = 25; xbar1 = 7.66; sd1 = 1.34 
+n2 = 148; xbar2 = 6.81; sd2 = 1.73  
+s.e. = sqrt(sd1^2/n1 + sd2^2/n2);s.e.
+df = 38#題目給的
+t_value = ((xbar1 - xbar2) - 0)/s.e.;t_value
+```
+
+**Step3a**   
+```{r}
+p_value = pt(t_value, df = df, lower.tail = F)*2;p_value#Two-sided
+```
+
+**Step4a**   
+I'll assume that the significance level here is 0.05(alpha = 0.05).   
+Since the p-value is much smaller than alpha, we can reject the null hypothesis in favor of the alternative hypothesis.   
+
+
+**Step5a**    
+The sample here is statistically significant.   
+The sample here provides sufficient evidence to reject the null hypothesis.       
+Hence, I can conclude that the mean number of hours of sleep for the two populations of students are not equal.     
+
+b.  
+we can see the plot here shows that the data from both samples are approximately bell-shaped.  
+There isn't noticeable skewness or any outliers for both groups.    
+Hence, the conditions to carry out the two-sample t-test for mean are met.    
+
+c. 
+
+**Step2c**    
+
+*POOLED*
+```{r}
+sp = sqrt(((n1-1)*sd1^2 + (n2-1)*sd2^2)/(n1+n2-2));sp#Pooled sd
+s.e.pooled = sp*sqrt(1/n1 + 1/n2);s.e.pooled#Pooled se
+df = n1 + n2 - 2;df
+t_value = ((xbar1 - xbar2) - 0)/s.e.pooled;t_value
+```
+
+**Step3c**    
+```{r}
+p_value = pt(t_value, df = df, lower.tail = F)*2;p_value#Two-sided
+```
+
+**Step4c**   
+I'll assume that the significance level here is 0.05(alpha = 0.05).   
+Since the p-value is much smaller than alpha, we can reject the null hypothesis in favor of the alternative hypothesis.   
+
+
+**Step5c**    
+The sample here is statistically significant.   
+The sample here provides sufficient evidence to reject the null hypothesis.       
+Hence, I can conclude that the mean number of hours of sleep for the two populations of students are not equal.     
+
+Evcen though we got the same conclusion by using both unpooled and pooled procedure,    
+it is better to use the unpooled one in this case   
+because **neither the sample sizes nor the standard deviations are similar**.   
+
+##Q1364   
+H0：mu = 25；alpha = 0.05   
+a. Two-sided test：Yes, H0 can be rejected since **the confidence interval does not cover the null value**.   
+b. One-sided test：No, H0 cannot be rejected since **the entire confidence interval do not fall above the null value**.   
+c. One-sided test：No, H0 cannot be rejected since **the entire confidence interval do not fall below the null value**.   
+
+##Q1376   
+a. Max was interested in the proportion of people who were born in October(p).    
+There is only **one** random sample(his birthday calender), and it's a **categorical** variable(month).   
+Consequently, the parameter of interest is *p*, the population proportion.    
+A hypothesis test is enough here. H0：p = 1/12；Ha：p > 1/12    
+
+b. The researchers un the study might interested in the mean difference between cholesterol levles for patients 2 & 4 days after they've got a heart attack(mud).   
+There is only **one** random sample(heart attack patients) of which each patient was **measured twice in the same measurements**(day 2 & 4).     
+Consequently, the parameter of interest is *mud*, the population mean of paired differences.    
+A confidence level is enough here since we expect that day2 is higher than day4.    
+
+##Q1378
+a. The effect size for (a) is 0.2702 which is considered to be a **Small** effect.    
+```{r}
+n = 30
+t = 1.48
+d_hat = t/sqrt(n);d_hat
+```
+
+b. The effect size for (b) is -0.4943 which is considered to be a **Medium** effect.    
+```{r}
+n1 = 40; n2 = 50
+t = -2.33
+d_hat = t*sqrt(1/n1 + 1/n2);d_hat
+```
