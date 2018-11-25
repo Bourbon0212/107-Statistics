@@ -1,0 +1,20 @@
+---
+title: "Quiz8"
+author: "b06208001 龔泓愷"
+date: "2018年11月23日"
+output: html_document
+---
+##Q1278
+a. The effect size for (a) is 0.2702 which is considered to be a **Small** effect.    
+```{r}
+n = 30
+t = 1.48
+d_hat = t/sqrt(n);d_hat
+```
+
+b. The effect size for (b) is -0.4943 which is considered to be a **Medium** effect.    
+```{r}
+n1 = 40; n2 = 50
+t = -2.33
+d_hat = t*sqrt(1/n1 + 1/n2);d_hat
+```
