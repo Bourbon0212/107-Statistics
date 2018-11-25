@@ -12,7 +12,8 @@ Lab4: [Random Variable](https://bourbon0212.github.io/107-Statistics/Lab4/Random
 Lab7: [Statistics as Random Variables](https://bourbon0212.github.io/107-Statistics/Lab7/Statistics_as_Random_Variables.html)   
 Lab8: [Estimating Prpoprtions with Confidence](https://bourbon0212.github.io/107-Statistics/Lab8/Estimating_Proportions_with_Confidence.html)    
 Lab9: [Estimating Means with Confidence](https://bourbon0212.github.io/107-Statistics/Lab9/Estimating_Means_with_Confidence.html)        
-Lab10: [Testing Hypotheses about Proportions](https://bourbon0212.github.io/107-Statistics/Lab10/Testing_Hypotheses_about_Proportions.html)       
+Lab10: [Testing Hypotheses about Proportions](https://bourbon0212.github.io/107-Statistics/Lab10/Testing_Hypotheses_about_Proportions.html)   
+Lab11: [Testing Hypotheses about Means](https://bourbon0212.github.io/107-Statistics/Lab11/Testing_Hypotheses_about_Means.html)   
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
 [Quiz2](https://bourbon0212.github.io/107-Statistics/Lab3/Quiz2.html)   
@@ -23,3 +24,4 @@ Midterm Exam 1：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Mid
 [Quiz5](https://bourbon0212.github.io/107-Statistics/Lab8/Quiz5.html)      
 [Quiz6](https://bourbon0212.github.io/107-Statistics/Lab9/Quiz6.html)      
 [Quiz7](https://bourbon0212.github.io/107-Statistics/Lab10/Quiz7.html)       
+[Quiz8](https://bourbon0212.github.io/107-Statistics/Lab11/Quiz8.html)       
