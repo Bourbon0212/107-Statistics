@@ -25,3 +25,4 @@ Midterm Exam 1：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Mid
 [Quiz6](https://bourbon0212.github.io/107-Statistics/Lab9/Quiz6.html)      
 [Quiz7](https://bourbon0212.github.io/107-Statistics/Lab10/Quiz7.html)       
 [Quiz8](https://bourbon0212.github.io/107-Statistics/Lab11/Quiz8.html)       
+[Midterm Exam 2 Practice](https://bourbon0212.github.io/107-Statistics/Midterm2/2017_Midterm2_Exam_Practice.html)    
