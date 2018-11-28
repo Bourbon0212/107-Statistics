@@ -25,4 +25,5 @@ Midterm Exam 1：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Mid
 [Quiz6](https://bourbon0212.github.io/107-Statistics/Lab9/Quiz6.html)      
 [Quiz7](https://bourbon0212.github.io/107-Statistics/Lab10/Quiz7.html)       
 [Quiz8](https://bourbon0212.github.io/107-Statistics/Lab11/Quiz8.html)       
-[Midterm Exam 2 Practice](https://bourbon0212.github.io/107-Statistics/Midterm2/2017_Midterm2_Practice.html)    
+[Midterm Exam 2 Practice](https://bourbon0212.github.io/107-Statistics/Midterm2/2017_Midterm2_Practice.html)      
+Midterm Exam 2：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Midterm2/2018Midterm2.html)，[Test Paper](https://ceiba.ntu.edu.tw/course/aa5cdc/content/統計學及實習考試二.pdf)   
