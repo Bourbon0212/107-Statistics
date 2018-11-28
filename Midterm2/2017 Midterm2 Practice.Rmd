@@ -63,7 +63,7 @@ p_value = pnorm(z_value, lower.tail = F);p_value#單尾假說檢定
 P_value約為0.1515，大於顯著水準，我們無法推翻虛無假說。   
 
 **Step5**   
-**即使最新抽樣結果大於虛無假設，樣本卻沒有提供足夠證據推翻虛無假說。    
+**即使最新抽樣結果大於虛無假說，樣本卻沒有提供足夠證據推翻虛無假說。    
 既然我們無法拒絕校方的宣稱，我們就不能下學生意願提高的結論，    
 因為我們無法拒絕校方宣稱屬實的可能性**
 
@@ -130,12 +130,12 @@ p_value <- pnorm(abs(z_value), lower.tail = F)*2;p_value#雙尾假說檢定
 ```
 
 **Step4**   
-P_value約為0.，小於顯著水準，我們能推翻虛無假說，接受另類假說。     
+P_value約為0，小於顯著水準，我們能推翻虛無假說，接受對立假說。     
 
 **Step5**   
 **此樣本為統計上顯著。    
 樣本提供足夠證據推翻虛無假說。    
-因此，我們能下台北市和高雄市的空汙週比例是否存在顯著差異的結論。**
+因此，我們能下台北市和高雄市的空汙週比例存在顯著差異的結論。**
 
 ###(c)    
 
@@ -160,19 +160,263 @@ plot(c(0,3),type='n',xlim=c(-0.1,0.5),
      main='Comparsion of the Two Confidence Interval')
 
 lines(c(low1, up1),c(2,2))
-text(up1,2.2,labels='Taipei')
 lines(c(low1, low1),c(1.95,2.05))
 lines(c(p1, p1),c(1.95,2.05))
 lines(c(up1, up1),c(1.95,2.05))
+text(up1,2.2,labels='Taipei')
 
 lines(c(low2, up2),c(1,1))
-text(up2,1.2,labels='Kaohsiung')
 lines(c(low2, low2),c(0.95,1.05))
 lines(c(p2, p2),c(0.95,1.05))
 lines(c(up2, up2),c(0.95,1.05))
+text(up2,1.2,labels='Kaohsiung')
 
-axis(1)
+arrows(x0 = 0, y0 = 0.8, x1 = 0, y1 = 0)
+text(0, 1, labels = 'The Proportion is 0')
 
-
+axis(1, seq(-0.5, 0.5, by = 0.1))#X軸座標切法
 ```
+
+**從圖中可以看到95%信心水準下的信賴區間，沒有重疊，呼應(b)的結論，台北與高雄的空汙周確實存在差異。**    
+
+##4   
+台北市的抽菸人口比例不超過三成。    
+某公衛研究團隊針對此議題進行台北市抽菸口比例的抽樣調查。    
+抽樣調查 400 人，其中吸菸者有 131 人。請問：    
+
+###(a)    
+在 0.05 的顯著水準下，利用統計檢定檢驗台北市政府衛生局發言人的言論是否恰當？    
+
+**Step1**   
+H0：抽菸人口比例(p)不超過3成，p <= 0.3    
+Ha：抽菸人口比例(p)超過3成    
+
+**Step2**   
+```{r}
+n = 400; p = 0.3
+n*p
+n*(1-p)
+```
+
+Both np & n(1-p) >= 10    
+所以我們能使用單一母體比例的假說檢定(HT about a Population Proportion)    
+```{r}
+p_hat = 131/400
+se = sqrt(p*(1-p)/n);se
+z_value = (p_hat - p)/se;z_value
+```
+
+**Step3**   
+```{r}
+p_value = pnorm(z_value, lower.tail = F);p_value
+```
+
+**Step4**   
+P_value約為0.115，大於顯著水準，我們無法推翻虛無假說。   
+
+**Step5**   
+**即使最新抽樣結果大於虛無假說，樣本卻沒有提供足夠證據推翻虛無假說。    
+既然我們無法拒絕台北市衛生局發言人的說法，我們就不能下抽菸人口比例超過3成的結論，    
+因為我們無法拒絕台北市衛生局發言人的說法屬實的可能性**
+
+###(b)    
+若台北市實際的抽菸人口比例為 35%，則該團隊的推論犯錯機率為何？    
+
+也就是在對立假說(Ha)正確的前提下，我們無法拒絕虛無假說(H0)，即所謂的形二誤差。    
+```{r}
+#H0
+p_h0 = 0.3;n = 400
+se_h0 = sqrt(p_h0*(1-p_h0)/n);se_h0
+z_thres = qnorm(0.95);z_thres#單尾檢定
+x_thres = z_thres*se_h0 + p_h0;x_thres#將臨界值換成標準化前的數值
+
+#Ha
+p_ha = 0.35; n = 400
+se_ha = sqrt(p_ha*(1-p_ha)/n);se_ha
+type2error = pnorm(x_thres, mean = p_ha, sd = se_ha);type2error#將前面的數值帶入，計算當HA為真發生的機率
+```
+
+**該團隊的推論犯錯機率為0.3028415**   
+
+###(c)    
+對新北市做調查，抽樣 600 人當中吸菸者有 225 人。    
+根據該研究團隊在兩個城市的抽樣調查結果，    
+台北市與新北市的抽菸人口比例是否相同？    
+
+**Step1**   
+H0：台北(p1)與新北(p2)抽菸人口比例相同，p1 = p2   
+H0：台北(p1)與新北(p2)抽菸人口比例不同，p1 != p2    
+
+**Step2**
+```{r}
+p1 = 131/400; n1 = 400
+p2 = 225/600; n2 = 600
+p1*n1;n1*(1-p1)
+p2*n2;n2*(1-p2)
+```
+
+皆至少為10所以我們能使用兩母體比例差異的假說檢定(HT about the Difference in Two Population Proportions)    
+
+```{r}
+p_hat = (n1*p1 + n2*p2)/(n1+n2);p_hat
+se = sqrt(p_hat*(1-p_hat)/n1 + p_hat*(1-p_hat)/n2);se
+z_value = ((p1 -p2) - 0)/se;z_value
+```
+
+**Step3**   
+```{r}
+p_value <- pnorm(abs(z_value), lower.tail = F)*2;p_value
+```
+
+**Step4**   
+P_value約為0.1243，大於顯著水準，我們無法推翻虛無假說。   
+
+**Step5**   
+**即使最新抽樣結果顯示兩群體比例有差異，樣本卻沒有提供足夠證據推翻虛無假說。    
+既然我們無法拒絕台北與新北抽菸人口比例相同的說法，我們就不能下台北與新北抽菸人口比例不同的結論，    
+因為我們無法拒絕台北與新北抽菸人口比例相同的說法屬實的可能性**
+
+##5   
+若原廠電池的續航力可超過副廠電池的續航力 150 小時以上，則購買原廠電池較為划算。   
+原廠與副廠電池的續航力整理：    
+
+   .|樣本數|平均續航力|標準差 
+----|------|----------|------  
+原廠|20    |1435      |94
+副廠|10    |1209      |68
+
+###(a)
+請問在 85%的信心水準下，原廠及副廠電池各自的信賴區間為何？    
+```{r}
+n1 = 20; x1 = 1435; sd1 = 94; df1 = n1 - 1#原廠
+n2 = 10; x2 = 1209; sd2 = 68; df2 = n2 - 1#副廠
+
+se1 = sd1/sqrt(n1);se1
+se2 = sd2/sqrt(n2);se2
+
+t_value1 <- qt(0.925, df = df1);t_value1
+t_value2 <- qt(0.925, df = df2);t_value2
+
+low1 <- x1 - t_value1*se1
+up1 <- x1 + t_value1*se1
+c(low1, up1)
+
+low2 <- x2 - t_value2*se2
+up2 <- x2 + t_value2*se2
+c(low2, up2)
+```
+
+**原廠的信賴區間：[1403.467, 1466.533]**    
+**副廠的信賴區間：[1175.159, 1242.841]**
+
+###(b)    
+請以 0.05 的顯著水準進行統計檢定，    
+並推論該研究員應購買原廠或副廠電池較為划算？    
+
+**Step1**   
+H0：原廠與副廠電池之差距<=150   
+Ha：原廠與副廠電池之差距>150    
+
+**Step2**   
+由於兩個群體的樣本數都不足(<30)，假設其沒有離群值與分布呈鐘型分布。   
+所以我們能使用兩母體平均之差的假說檢定(HT about the Difference in  Two Population Means(Independent))     
+
+```{r}
+se = sqrt(sd1^2/n1 + sd2^2/n2);se
+df = min(df1, df2);df#取兩者之小，比較保守
+t_value = ((x1 - x2) - 150)/se;t_value
+```
+
+**Step3**   
+```{r}
+p_value = pt(t_value, df = df, lower.tail = F);p_value#單尾檢定
+```
+
+**Step4**   
+P_value約為0.01619，小於顯著水準，我們能推翻虛無假說，接受對立假說。     
+
+**Step5**   
+**此樣本為統計上顯著。    
+樣本提供足夠證據推翻虛無假說。    
+因此，我們能下原廠電池的續航力可超過副廠電池的續航力 150 小時以上的結論。   
+所以，研究人員購買原廠電池較為划算。**
+
+##6   
+假設 50 座氣象測站資料彼此獨立，    
+請以 0.05 的顯著水準進行假設檢定。    
+```{r}
+data <- read.csv('US_temperature.csv');head(data)
+```
+
+
+###(a)
+請以假設檢定檢驗分別在 1968 及 2016 年所觀測到的氣溫是否有顯著差異？    
+
+**Step1**   
+H0：1968與2016年所觀測到的氣溫沒有差異，mud = 0   
+Ha：1968與2016年所觀測到的氣溫有差異，mud != 0    
+
+**Step2**   
+成對樣本數夠大(>=30)    
+所以我們能使用兩母體差之平均的假說檢定(HT about the Population Mean of Paired Differences(Dependent))       
+
+```{r}
+diff = data[,3] - data[,2]#2016 - 1968
+dbar = mean(diff);dbar
+sd = sd(diff);sd
+se = sd/sqrt(50);se
+t_value = (dbar - 0)/se;t_value
+```
+
+**Step3**   
+```{r}
+p_value = pt(abs(t_value), df = 50 - 1, lower.tail = F)*2;p_value#雙尾檢定
+```
+
+**Step4**   
+P_value約為0.003235，小於顯著水準，我們能推翻虛無假說，接受對立假說。   
+
+**Step5**   
+**此樣本為統計上顯著。    
+樣本提供足夠證據推翻虛無假說。    
+因此，我們能下1968與2016年所觀測到的氣溫有顯著差異的結論。**
+
+```{r}
+t.test(data$year_2016, data$year_1968, alternative = 'two.sided', var.equal = F, paired =T, conf.level = 0.95)
+```
+
+###(b)    
+在兩個年份均沒有氣候異常的情況下若年均溫差大於 1.6度C，   
+則可宣稱美國境內有暖化現象。    
+請計算 95%的信賴區間並繪製成圖，    
+依據結果判斷NOAA 是否能如此宣稱。   
+
+```{r}
+#信賴區間計算
+t_value = qt(0.975, df = 50 - 1);t_value
+low = dbar - t_value*se
+up = dbar + t_value*se
+c(low, up)
+
+#畫圖
+plot(c(0,1),type='n',xlim=c(-1,3),
+     xlab='Mean Temperature Difference of 1968 and 2016 in US',ylab='',axes=F,
+     main='The Difference of Confidence Interval')
+
+lines(c(low, up),c(0.6,0.6))
+lines(c(low, low),c(0.5,0.7))
+lines(c(dbar, dbar),c(0.5,0.7))
+lines(c(up, up),c(0.5,0.7))
+
+arrows(x0 = 1.6, y0 = 0.93, x1 = 1.6, y1 = 0)
+text(1.6, 1, labels = 'The Proportion is 0')
+
+axis(1, seq(-1, 3, by = 0.5))
+```
+
+**95%信賴區間[0.3881885, 1.8234115]   
+此信賴區間包含Null Value = 1.6，    
+故我們無法拒絕年溫差為1.6的假設，而下兩年均溫差>1.6的結論
+故沒有足夠的信心宣稱美國境內有暖化現象。**
+
 
