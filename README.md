@@ -14,7 +14,7 @@ Lab8: [Estimating Prpoprtions with Confidence](https://bourbon0212.github.io/107
 Lab9: [Estimating Means with Confidence](https://bourbon0212.github.io/107-Statistics/Lab9/Estimating_Means_with_Confidence.html)        
 Lab10: [Testing Hypotheses about Proportions](https://bourbon0212.github.io/107-Statistics/Lab10/Testing_Hypotheses_about_Proportions.html)   
 Lab11: [Testing Hypotheses about Means](https://bourbon0212.github.io/107-Statistics/Lab11/Testing_Hypotheses_about_Means.html)     
-Lab13: [Relationship Between Quantitative Variables.html](https://bourbon0212.github.io/107-Statistics/Lab13/Relationship_Between_Quantitative_Variables.html)    
+Lab13: [Relationship Between Quantitative Variables](https://bourbon0212.github.io/107-Statistics/Lab13/Relationship_Between_Quantitative_Variables.html)    
 
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
