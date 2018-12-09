@@ -1,0 +1,74 @@
+---
+title: "Relationship Between Quantitative Variables"
+author: "b06208001 龔泓愷"
+date: "2018年12月7日"
+output: html_document
+---
+##Q312    
+```{r}
+m_height = c(71,70,74,67,65,72,68,74)
+f_height = c(60,66,65,66,67,63,69,63,61,65)
+m_mid = c(64,64.5,72.5,64,63,69,67,69.5)
+f_mid = c(63.5,67,65.5,69.5,67.5,65.5,70,63,63,67.5)
+```
+a. `Height` is the response variable(y)   
+`Mid-Parent Height` is the explanatory variable(x)    
+
+b. 
+```{r}
+
+plot(c(60, 75),type='n',xlim=c(60, 75), ylim=c(60, 75), 
+     xlab='Mid-Parent Height',ylab='Height',axes=T, 
+     main='Scatter Plot')
+points(m_mid, m_height, pch = 1, cex = 1, col='blue')
+points(f_mid, f_height, pch = 16, cex = 1, col='red')
+```
+
+
+##R Function Practice
+```{r}
+data <- read.csv("Vehicles.csv")
+head(data)
+
+#plot
+plot(data$Vehicle ~ data$GDP,
+     pch = 16, cex = 1, col = 'navy',
+     main = 'Vehicle vs. GDP',
+     xlab = 'GDP', ylab = 'Vehicle')
+
+#correlation
+Cor = cor.test(data$Vehicle, data$GDP)
+cor = Cor$estimate; cor
+
+
+#linear regression
+RESULTS = lm(data$Vehicle ~ data$GDP)
+summary(RESULTS)
+
+coeff = RESULTS$coefficients; coeff
+res = RESULTS$residuals; res
+yhat = RESULTS$fitted.values; yhat
+```
+```{r}
+plot(data$Vehicle ~ data$GDP,
+     pch = 16, cex = 1, col = 'navy',
+     main = 'Vehicle vs. GDP',
+     xlab = 'GDP', ylab = 'Vehicle')
+abline(RESULTS, col = 'red')
+
+#ANOVA
+anova(RESULTS)
+SSR = 2.7609e+13
+SSE = 7.4185e+11
+r.squre = SSR/(SSR + SSE);r.squre
+```
+
+(1) Scatterplot   
+從散佈圖中，我們能看出兩者呈現高度正相關，Vehicle與GDP變動方向一致。    
+(2) Correlation Coefficient   
+從前面的測試結果，可以看到兩者的相關係數為0.987，顯示兩者有高度正向關，與散布圖呈現內容相符。    
+
+(3) Simple Regression   
+從線性回歸模型，我們能看到該回歸線的斜率與截距分別為305.5035與1605510.4932。         
+yhat模型的估計值，與實際值之間的殘差，我們能算出r.square，其值為0.9738，    
+表示該回歸模型可解釋約97.4%的GDP能解釋Vehicle的變異。   

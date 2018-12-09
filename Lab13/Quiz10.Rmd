@@ -1,0 +1,17 @@
+---
+title: "Quiz10"
+author: "b06208001 龔泓愷"
+date: "2018年12月7日"
+output: html_document
+---
+##Q348    
+a. SSTO是由response variable(y)即反應變項與ybar計算而得，其與explanatory variable(x)解釋變項無關，故不管使用何者作為解釋變項，其SSTO值皆相同。   
+
+b. 從公式能知，SSR越高，在SSTO皆相同的情況下，計算而得的r.squred的值會越大，代表越能使用x來解釋y的變異。因此，在本題中，使用mid-parent heighty作為解釋變項，將能解釋最多的反映變項。   
+
+c. 計算r.square結果約為0.3099，代表使用father's height將能解釋30.99%觀測值的身高變異。   
+```{r}
+SSR = 88; SSE = 196
+r.squre = SSR/(SSR + SSE); r.squre
+```
+
