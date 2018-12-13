@@ -90,8 +90,9 @@ predict = 113.6 - 1.01 * 0; predict
 b. The regression equation is based on the dataset with latitude values range from 26 to 47 we have in exercise.9.    
 It should not be used to extrapolate the average August temperature of the equator which is 0 and is far below the range.   
 
-#Q382
-a.`winning time = 272.63 - 0.1184 * year`   
+#Q382   
+
+a. `winning time = 272.63 - 0.1184 * year`   
 The correlation between the two variables is negative since the slope is `-0.1184`.    
 This means that winning time decreases over the years.    
 
@@ -155,4 +156,4 @@ r.squre = SSR/(SSR + SSE);r.squre
 (3) Simple Regression   
 從線性回歸模型，我們能看到該回歸線的斜率與截距分別為305.5035與1605510.4932。         
 從yhat模型的估計值與實際值之間的殘差(SSE)，與回歸解釋的變異(SSR)，我們能算出r.square，其值為0.9738，    
-表示該回歸模型可解釋約97.4%的GDP能解釋Vehicle的變異。   
+表示該回歸模型，GDP能解釋約97.4%Vehicle的變異。   
