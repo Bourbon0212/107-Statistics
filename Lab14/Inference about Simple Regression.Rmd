@@ -275,4 +275,4 @@ Normal Distribution Condition：從殘差直方圖與QQ圖看出，其呈現為�
 Independent Condition：假設每年GDP與汽車數量的關係獨立。
 
 #####3.2. 處理    
-5種線性回歸的條件節達成，無須額外的處理。   
+5種線性回歸的條件皆達成，無須額外的處理。   
