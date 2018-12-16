@@ -16,14 +16,98 @@ a. `Height` is the response variable(y)
 
 b. 
 ```{r}
-
 plot(c(60, 75),type='n',xlim=c(60, 75), ylim=c(60, 75), 
      xlab='Mid-Parent Height',ylab='Height',axes=T, 
      main='Scatter Plot')
 points(m_mid, m_height, pch = 1, cex = 1, col='blue')
 points(f_mid, f_height, pch = 16, cex = 1, col='red')
+legend("bottomright",c("Male","Female"),col=c("blue","red"),pch=c(1,16))
 ```
 
+c. The pattern seems to be linear for both female and male(although it's a little bit weaker).    
+The two lines seem to be parallel, and the male one is higher than the female one which indicates that males are usually taller than females.    
+The relationship is also positive for both female and male, and there isn't any obvious outliers.   
+
+d. Below is the scatterplot of the data we calculated.    
+It looks like there's a weak negative relationship between mid-parent heights and differences.    
+According to this graph, we can say that mid-parent heights can determine the differences.   
+Since that, we may conclude that their children's heights are based on their mid-heights.     
+```{r}
+m_diff = m_height - m_mid;m_diff
+f_diff = f_height - f_mid;f_diff
+plot(c(60, 75),type='n',xlim=c(60, 75), ylim=c(-10, 10), 
+     xlab='Mid-Parent Height',ylab='Difference',axes=T, 
+     main='Scatter Plot')
+points(m_mid, m_diff, pch = 1, cex = 1, col='blue')
+points(f_mid, f_diff, pch = 16, cex = 1, col='red')
+legend("bottomright",c("Male","Female"),col=c("blue","red"),pch=c(1,16))
+```
+
+##Q324
+a. `yhat = 126-2.34x`   
+The slope of the regrssion equation is `-2.34`.   
+The slope of `-2.34` means that whenever geographic latitudes(x) increases one unit,    
+the average January temperatures(y) decreases 2.34 degrees.    
+
+b. According to the table in exercise.9, the temperature of Pittsburgh and Boston is 25 and 29, respectively.   
+And the difference is 25 - 29 = -4.   
+By the regression equation, we calculate that the estimated difference is -4.68,    
+which is very close to the difference in the real world.    
+```{r}
+diff = -2.34*2; diff
+```
+
+c. 48.78 degrees.   
+```{r}
+predict = 126 - 2.34 * 33; predict
+```
+
+d. Phoenix is cooler than predicted.    
+On the other hand, Dallas is warmer.    
+```{r}
+Phoenix_res = 43 - predict;Phoenix_res
+Dallas_res = 54 - predict;Dallas_res
+```
+
+##Q348    
+a. SSTO是由response variable(y)即反應變項與ybar計算而得，其與explanatory variable(x)解釋變項無關，故不管使用何者作為解釋變項，其SSTO值皆相同。   
+
+b. 從公式能知，SSR越高，在SSTO皆相同的情況下，計算而得的r.squred的值會越大，代表越能使用x來解釋y的變異。因此，在本題中，使用mid-parent heighty作為解釋變項，將能解釋最多的反映變項。   
+
+c. 計算r.square結果約為0.3099，代表使用father's height將能解釋30.99%觀測值的身高變異。   
+```{r}
+SSR = 88; SSE = 196
+r.squre = SSR/(SSR + SSE); r.squre
+```
+
+#Q362
+a. `yhat = 113.6-1.01x`   
+The estimated average August temperature at the equator is 113.6 degrees.   
+```{r}
+predict = 113.6 - 1.01 * 0; predict
+```
+
+b. The regression equation is based on the dataset with latitude values range from 26 to 47 we have in exercise.9.    
+It should not be used to extrapolate the average August temperature of the equator which is 0 and is far below the range.   
+
+#Q382   
+
+a. `winning time = 272.63 - 0.1184 * year`   
+The correlation between the two variables is negative since the slope is `-0.1184`.    
+This means that winning time decreases over the years.    
+
+b. The predicted winning time(34.646) is shorter than the real one(34.91).
+```{r}
+win2010 = 272.63 - 0.1184 * 2010;win2010
+```
+
+c. The slpoe indicates that the winning time decreases by 0.1184 seconds every year.    
+So a skater who wants to win should be faster than the last olympic game by `4*0.1184 = 0.4736` seconds.   
+
+d. Because there is no gurantee that this regression equation will be true in 2080 which is far beyound the dataset(1924~2006) we have.   
+```{r}
+win2080 = 272.63 - 0.1184 * 2080;win2080
+```
 
 ##R Function Practice
 ```{r}
@@ -65,10 +149,11 @@ r.squre = SSR/(SSR + SSE);r.squre
 
 (1) Scatterplot   
 從散佈圖中，我們能看出兩者呈現高度正相關，Vehicle與GDP變動方向一致。    
+
 (2) Correlation Coefficient   
 從前面的測試結果，可以看到兩者的相關係數為0.987，顯示兩者有高度正向關，與散布圖呈現內容相符。    
 
 (3) Simple Regression   
 從線性回歸模型，我們能看到該回歸線的斜率與截距分別為305.5035與1605510.4932。         
-yhat模型的估計值，與實際值之間的殘差，我們能算出r.square，其值為0.9738，    
-表示該回歸模型可解釋約97.4%的GDP能解釋Vehicle的變異。   
+從yhat模型的估計值與實際值之間的殘差(SSE)，與回歸解釋的變異(SSR)，我們能算出r.square，其值為0.9738，    
+表示該回歸模型，GDP能解釋約97.4%Vehicle的變異。   
