@@ -4,22 +4,131 @@ author: "b06208001 龔泓愷"
 date: "2018年12月14日"
 output: html_document
 ---
+##Q1416   
+a. `yhat = 98.6 - 0.0138(age)`    
+The predicted body temperature for someone who is 21 years old is *98.3102*.
+```{r}
+fit21 = 98.6 - 0.0138 * 21; fit21
+```
+
+b. 
+```{r}
+98.3 - fit21
+98.4 - fit21
+```
+
+c. The Interval is **(96.9382, 99.6822)**   
+```{r}
+c(fit21 - 1.96 * 0.7, fit21 + 1.96 * 0.7)
+```
+
+d. NO.    
+It would not be unusual since the value is contained in the interval we've calculated above.     
+
+##Q1428   
+a. Since the regression line is derived from the sample, the best notation for the slope would be `b1`.   
+b. The 95% confidence interval for beta1 is **(-0.022032, -0.005568)**     
+which means that we are 95% confident that the true value of the slope of the population regression line is contained in the interval.    
+```{r}
+c(-0.0138 - 1.96 * 0.0042, -0.0138 + 1.96 * 0.0042)
+```
+
+c. The interval is **(-0.22, -0.05)**.    
+
+##Q1436
+a. Regression Equation: `Y = 34.98 + 10.66X`    
+yhat is the number shown in the column labeled 'Fit'.   
+```{r}
+Fit = 34.98 + 10.66 * 4; Fit
+```
+
+b. 95%CI = (76.670, 78.571)   
+We can say that we are of 95% confidence that the *mean* value of `TIMENEXT` for a population of individuals who all have the same particular value of `DURATION` will falls beween `76.670` and `78.571`.
+
+c. 95%PI = (64.307, 90.934)   
+We can say that we are of 95% confidence tha the value of `TIMENEXT` for an individual with a particular value of `DURATION` will falls beween `64.307` and `90.934`.    
+
+d. Prediction Interval for y    
+Because we want to know the expected time to see the next eruption of the specific geyser rather than the mean value of all geysers whose previous eruption lasted that long.   
+
+##Q1454
+
+a. `yhat = 30 + 0.576x`   
+b. According to the Minitab output, t = `7.73`.   
+```{r}
+b1 = 0.57568; se.b1 = 0.07445
+t = (0.57568 - 0)/0.07445; t
+```
+
+c. 
+**Step1**   
+H0：beta1 = 0，兩者非線性相關     
+Ha：beta1 != 0，兩者為線性相關    
+**Step2**   
+`b1 = 0.57568; t =7.73`   
+**Step3**   
+The reported p-value is 0.000.    
+**Step4**
+Since the p-value is less than any significance level we might use,   
+We can rehect the null hypothesis in favor of the alternative hypothesis.   
+**Step5**   
+We can conclude that there is a linear relationship between a college man's height and his father's height.    
+
+d. n = 76 with 3 missing values >> df = 73 - 2 = 71.    
+```{r}
+t = qt(1 - 0.05/2, df = 71);t#calculating t*
+c(b1 - t * se.b1, b1 + t * se.b1)
+```
+
+The 95% confidence interval for beta1 is **0.4272309 0.7241291**    
+which means that we are 95% confident that the true value of the slope of the population regression line is contained in the interval.    
+According to this interval,     
+we could say that we are 95% certain that an increase in father's height by 1 inch causes an increase in his son's height by 0.4273 to 0.7241 inches.
+
+##Q1456
+a. 
+```{r}
+fit65 = 29.981 + 0.57568*65; fit65
+```
+b. The 95% prediction interval is **(64.946, 75.612)**    
+  (1) About 95% of all college men whose fathers are 70 inches tall have heights between 64.946 and 75.612 inches.    
+  (2) The probability of a randomly selected college man whose father is 70 inches tall, would have height between 64.946 and 75.612 inches is 0.95.   
+
+c. The 95% confidence interval is **(71.596, 73.566)**    
+which means that we are 95% certain that the mean height of all college mean whose fathers are 70 inches tall, is between 71.596 and 73.566.    
+
+d. The confidence interval is narrow because the sample size is large enough(n = 73),   
+so we can get a accurate estimate mean value of the son's height.   
+On the other hand, the prediction interval depends on the standard deviation of the regression line   
+and considers the variation of each individual's height which causes the interval is wider the confidence interval.    
+
+e. The scatterplot tells us that there are some outliers in the dataset.   
+Thus, we need to remove those outliers before doing any inference procedures for regression.   
+
+<br>
+
 ##R Function Practice
 ```{r}
 data <- read.csv("Vehicles.csv")
+data = na.omit(data)
 head(data, 5)
 ```
 
-####1. 估計簡單回歸式
+####**1. 估計簡單回歸式**
 ```{r}
-RESULTS <- lm(data$Vehicle ~ data$GDP)
+Vehicle = data$Vehicle
+GDP = data$GDP
+RESULTS <- lm(Vehicle ~ GDP)
 summary(RESULTS)
+anova(RESULTS)
 ```
+
+#####1.1. 以五步驟進行假說檢定
 
 假設顯著水準alpha = 0.05    
 **Step 1**    
-H0：beta1 = 0，兩者無相關性     
-Ha：beta1 != 0，兩者有相關性    
+H0：beta1 = 0，兩者非線性相關     
+Ha：beta1 != 0，兩者為線性相關    
 
 **Step 2**    
 b1 = 3.055e+02    
@@ -32,4 +141,138 @@ p_value = < 2.2e-16
 p_value < 0.05，Reject H0   
 
 **Step5**   
-根據假說檢定，我們能下 beta1 != 0的結論。   
+根據假說檢定，我們能下 beta1 != 0，也就是兩者為線性相關的結論。   
+
+#####1.2. 計算斜率的信賴區間
+```{r}
+n = nrow(data)
+#Manual Calculation
+x.mean = mean(GDP)
+y.mean = mean(Vehicle)
+
+data$xx = GDP - x.mean
+data$yy = Vehicle - y.mean
+data$xxyy = data$xx * data$yy
+data$xx2 = data$xx ^ 2
+
+#b1
+b1 = sum(data$xxyy)/sum(data$xx2);b1
+
+#SSE SSR
+yhat = RESULTS$fitted.values
+SSE = sum((Vehicle - yhat) ^ 2)
+SSR = sum((yhat - y.mean) ^ 2)
+
+#Standard error of regression
+s = sqrt(SSE/(n - 2));s
+
+#Standard error of b1
+se.b1 = s/sqrt(sum(data$xx2));se.b1
+
+#Confidence interval for b1
+alpha = 0.05
+t = qt(1 - alpha/2, df = n - 2)#calculating t*
+CI.b1 = c(b1 - t * se.b1, b1 + t * se.b1);CI.b1
+```
+
+斜率(b1)95%信心水準下的信賴區間為**(284.406, 326.601)**   
+
+<br>
+
+####**2. 估計GDP = c(9000, 13000, 17000)之PI與CI**    
+#####2.1. 計算PI與CI    
+```{r}
+#PI
+PI = predict(RESULTS, data.frame(GDP = c(9000, 13000, 17000)), interval = "prediction", level = 0.95);PI
+
+#CI
+CI = predict(RESULTS, data.frame(GDP = c(9000, 13000, 17000)), interval = "confidence", level = 0.95);CI
+```
+#####2.2. 解釋其代表意義    
+**Prediction Interval**   
+該區間意指，擁有相同解釋變項(x)的每個個體其反應變項(y)會落在相對應預測區間的機率為0.95。    
+
+當GDP為9000時，汽車數量(Vehicle)會落在3980710與4729374之間的機率為0.95。    
+當GDP為13000時，汽車數量(Vehicle)會落在5206360與5947752之間的機率為0.95。    
+當GDP為17000時，汽車數量(Vehicle)會落在6413130與7185010之間的機率為0.95。    
+
+**Confidence Interval**   
+該區指意指，我們有95%的信心水準能說對於所有擁有相同解釋變項(x)其反應變項(y)的平均值會落在相對應信賴區間，也就是期望值的區間。   
+
+對於所有GDP為9000的年份，我們有95%的信心水準說其汽車數量(Vehicle)的平均值會在4263081與444703之間。    
+對於所有GDP為13000的年份，我們有95%的信心水準說其汽車數量(Vehicle)的平均值會在5501243與5652869之間。    
+對於所有GDP為17000的年份，我們有95%的信心水準說其汽車數量(Vehicle)的平均值會在6667609與6930530之間。      
+
+#####2.3. 繪製PI與CI區間圖    
+```{r}
+fit = PI[,1]
+PI.low = PI[,2]
+PI.up = PI[,3]
+CI.low = CI[,2]
+CI.up = CI[,3]
+
+xx.test =  c(9000, 13000, 17000)
+
+#Plot for PI & CI
+#Spilt the plot
+par(mfrow = c(1, 2))
+#plot PI
+plot(GDP, Vehicle, pch = 20, col = 'gray50',
+     main = 'Prediction Interval', xlab = 'GDP', ylab = 'Vehicle',
+     ylim = c(2900000, 7200000))
+abline(RESULTS, col = 'navy')#regression line
+for (i in 1:length(xx.test)) {
+  lines(c(xx.test[i], xx.test[i]), c(PI.low[i], PI.up[i]), col = 'Red', lwd = 3)
+  points(xx.test[i], PI.low[i], col = 'red', pch = 15)#lower point
+  points(xx.test[i], PI.up[i], col = 'red', pch = 15)#upper point
+  points(xx.test[i], fit[i], col = 'red', pch = 8)#estimated value
+}
+#plot CI
+plot(GDP, Vehicle, pch = 20, col = 'gray50',
+     main = 'Confidence Interval', xlab = 'GDP', ylab = 'Vehicle',
+     ylim = c(2900000, 7200000))
+abline(RESULTS, col = 'navy')#regression line
+for (i in 1:length(xx.test)) {
+  lines(c(xx.test[i], xx.test[i]), c(CI.low[i], CI.up[i]), col = 'Red', lwd = 3)
+  points(xx.test[i], CI.low[i], col = 'green', pch = 15)#lower point
+  points(xx.test[i], CI.up[i], col = 'green', pch = 15)#upper point
+  points(xx.test[i], fit[i], col = 'green', pch = 8)#estimated value
+}
+```
+
+<br>
+
+####**3. 進行回歸診斷與處理**    
+#####3.1. 逐條診斷與解釋    
+**Scatterplot**   
+```{r}
+par(mfrow = c(1, 2))
+#Scatterplot of y vs. x
+plot(GDP, Vehicle, pch = 16, cex = 1, col = 'navy',
+     main = 'Vehicle vs. GDP', xlab = 'GDP', ylab = 'Vehicle')
+#Scatterplot of residuals vs. x
+res = Vehicle - yhat
+plot(GDP, res, pch = 16, cex = 1, col = 'navy',
+     main = 'Vehicle vs. GDP', xlab = 'GDP', ylab = 'Residuals')
+abline(h = 0, col = 'red')
+```
+
+**Histogram of Residuals & QQ plot**
+```{r}
+par(mfrow = c(1, 2))
+#Histogram of residuals
+hist(res, border = 'white', col = 'olivedrab3',
+     main = 'Histogram of Residual', xlab = 'Residuals')
+#QQ plot
+qqnorm(res)
+qqline(res, col = 'red')
+```
+
+Linear Relationship Condition：y vs. x 呈現線性；殘差 vs. x 沒有明顯規律。    
+No Outliner Condition：兩張散佈圖，皆沒有看到明顯離群值。   
+Constant Various Condition：兩張散佈圖，對任何x而言，y的散佈程度皆相似。    
+Normal Distribution Condition：從殘差直方圖與QQ圖看出，其呈現為常態分佈。   
+Independent Condition：假設每年GDP與汽車數量的關係獨立。
+
+#####3.2. 處理    
+5種線性回歸的條件節達成，無須額外的處理。   
