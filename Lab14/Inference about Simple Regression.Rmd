@@ -1,0 +1,35 @@
+---
+title: "Inference about Simple Regression"
+author: "b06208001 龔泓愷"
+date: "2018年12月14日"
+output: html_document
+---
+##R Function Practice
+```{r}
+data <- read.csv("Vehicles.csv")
+head(data, 5)
+```
+
+####1. 估計簡單回歸式
+```{r}
+RESULTS <- lm(data$Vehicle ~ data$GDP)
+summary(RESULTS)
+```
+
+假設顯著水準alpha = 0.05    
+**Step 1**    
+H0：beta1 = 0，兩者無相關性     
+Ha：beta1 != 0，兩者有相關性    
+
+**Step 2**    
+b1 = 3.055e+02    
+t_value = 29.89   
+
+**Step3**   
+p_value = < 2.2e-16   
+
+**Step4**   
+p_value < 0.05，Reject H0   
+
+**Step5**   
+根據假說檢定，我們能下 beta1 != 0的結論。   

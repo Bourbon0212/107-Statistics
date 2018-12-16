@@ -1,0 +1,21 @@
+---
+title: "Quiz11"
+author: "b06208001 龔泓愷"
+date: "2018年12月14日"
+output: html_document
+---
+##Q1436
+a. Regression Equation: `Y = 34.98 + 10.66X`    
+yhat is the number shown in the column labeled 'Fit'.   
+```{r}
+Fit = 34.98 + 10.66 * 4; Fit
+```
+
+b. 95%CI = (76.670, 78.571)   
+We can say that we are of 95% confidence that the *mean* value of `TIMENEXT` for a population of individuals who all have the same particular value of `DURATION` will falls beween `76.670` and `78.571`.
+
+c. 95%PI = (64.307, 90.934)   
+We can say that we are of 95% confidence tha the value of `TIMENEXT` for an individual with a particular value of `DURATION` will falls beween `64.307` and `90.934`.    
+
+d. Prediction Interval for y    
+Because we want to know the expected time to see the next eruption of the specific geyser rather than the mean value of all geysers whose previous eruption lasted that long.   
