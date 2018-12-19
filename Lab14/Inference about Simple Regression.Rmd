@@ -101,7 +101,7 @@ which means that we are 95% certain that the mean height of all college mean who
 d. The confidence interval is narrow because the sample size is large enough(n = 73),   
 so we can get a accurate estimate mean value of the son's height.   
 On the other hand, the prediction interval depends on the standard deviation of the regression line   
-and considers the variation of each individual's height which causes the interval is wider the confidence interval.    
+and considers the variation of each individual's height which causes the interval is wider than confidence interval.    
 
 e. The scatterplot tells us that there are some outliers in the dataset.   
 Thus, we need to remove those outliers before doing any inference procedures for regression.   
