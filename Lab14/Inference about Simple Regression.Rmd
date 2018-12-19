@@ -17,9 +17,10 @@ b.
 98.4 - fit21
 ```
 
-c. The Interval is **(96.9382, 99.6822)**   
+c. The Interval is **(96.92107, 99.69933)**   
 ```{r}
-c(fit21 - 1.96 * 0.7, fit21 + 1.96 * 0.7)
+t = qt(0.975, df = 98);t
+c(fit21 - t * 0.7, fit21 + t * 0.7)
 ```
 
 d. NO.    
@@ -27,10 +28,10 @@ It would not be unusual since the value is contained in the interval we've calcu
 
 ##Q1428   
 a. Since the regression line is derived from the sample, the best notation for the slope would be `b1`.   
-b. The 95% confidence interval for beta1 is **(-0.022032, -0.005568)**     
+b. The 95% confidence interval for beta1 is **(-0.022134, -0.005465)**     
 which means that we are 95% confident that the true value of the slope of the population regression line is contained in the interval.    
 ```{r}
-c(-0.0138 - 1.96 * 0.0042, -0.0138 + 1.96 * 0.0042)
+c(-0.0138 - t * 0.0042, -0.0138 + t * 0.0042)
 ```
 
 c. The interval is **(-0.22, -0.05)**.    
