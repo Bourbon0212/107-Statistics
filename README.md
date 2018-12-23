@@ -15,7 +15,9 @@ Lab9: [Estimating Means with Confidence](https://bourbon0212.github.io/107-Stati
 Lab10: [Testing Hypotheses about Proportions](https://bourbon0212.github.io/107-Statistics/Lab10/Testing_Hypotheses_about_Proportions.html)   
 Lab11: [Testing Hypotheses about Means](https://bourbon0212.github.io/107-Statistics/Lab11/Testing_Hypotheses_about_Means.html)     
 Lab13: [Relationship Between Quantitative Variables](https://bourbon0212.github.io/107-Statistics/Lab13/Relationship_Between_Quantitative_Variables.html)    
-Lab14：[Inference about Simple Regression](https://bourbon0212.github.io/107-Statistics/Lab14/Inference_about_Simple_Regression.html)    
+Lab14：[Inference about Simple Regression](https://bourbon0212.github.io/107-Statistics/Lab14/Inference_about_Simple_Regression.html)  
+Lab15：[Inference for Categorical Variables](https://bourbon0212.github.io/107-Statistics/Lab15/Inference_for_Categorical_ Variables.html)    
+
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
 [Quiz2](https://bourbon0212.github.io/107-Statistics/Lab3/Quiz2.html)   
@@ -31,3 +33,4 @@ Midterm Exam 1：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Mid
 Midterm Exam 2：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Midterm2/2018Midterm2.html)，[Test Paper](https://ceiba.ntu.edu.tw/course/aa5cdc/content/統計學及實習考試二.pdf)   
 [Quiz10](https://bourbon0212.github.io/107-Statistics/Lab13/Quiz10.html)    
 [Quiz11](https://bourbon0212.github.io/107-Statistics/Lab14/Quiz11.html)    
+[Quiz12](https://bourbon0212.github.io/107-Statistics/Lab15/Quiz12.html)    
