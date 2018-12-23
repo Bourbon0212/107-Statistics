@@ -1,0 +1,43 @@
+---
+title: "Quiz12"
+author: "b06208001 龔泓愷"
+date: "2018年12月21日"
+output: html_document
+---
+##Q426    
+a. For short, the risk of having been bullied is 45.65217%.   
+For not short, the risk of having been bullied is 25.64103%.    
+
+```{r}
+short = 92; short.bullied = 42; notshort = 117; notshort.bullied = 30
+
+risk.short = short.bullied/short; risk.short
+risk.notshort = notshort.bullied/notshort; risk.notshort
+```
+
+b. 1.780435   
+The risk of short being bullied is 1.780435 times the risk for not short.    
+
+```{r}
+relative = risk.short/risk.notshort; relative
+```
+
+
+c. 78.04348%    
+The interpretation of this percent increase in risk is that short students have a risk of being bullied is 78.04348% higher than the risk of not short students.    
+
+```{r}
+risk.increased = relative - 1; risk.increased
+```
+
+d. 2.436   
+The odds of being bullied for short are 2.436 times the odds of not short.   
+```{r}
+short.unbullied = short - short.bullied; short.unbullied
+notshort.unbullied = notshort - notshort.bullied; notshort.unbullied
+
+odds.short = short.bullied/short.unbullied; odds.short
+odds.notshort = notshort.bullied/notshort.unbullied; odds.notshort
+
+odds.ratio = odds.short/odds.notshort; odds.ratio
+```

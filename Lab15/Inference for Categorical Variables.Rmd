@@ -1,0 +1,427 @@
+---
+title: "Inference for Categorical Variables"
+author: "b06208001 龔泓愷"
+date: "2018年12月21日"
+output: html_document
+---
+##Q412  
+a. Row percentages measure the percentage of students feeling right, overweight or underweight about their weight for each gender(men & women) separately.  
+
+b. Here is the table of row percentages:    
+```{r}
+category <- c('Right', 'Overweight', 'Underweight', 'Total')
+gender <- c('Female', 'Male', 'Total')
+female <- c(87/129, 39/129, 3/129, 129/129)
+male <- c(64/83, 3/83, 16/83, 83/83)
+total <- c(151/212, 42/212, 19/212, 212/212)
+
+data <- c(female, male, total)
+
+table <- matrix(data, byrow = T, nrow = 3)
+colnames(table) <- category
+rownames(table) <- gender
+table
+```
+
+c. Here is a bar plot of the row percentage:
+```{r}
+library(ggplot2)
+Percentage <- c(female[1:3], male[1:3])
+Category <- factor(rep(c('Right', 'Overweight', 'Underweight'), 2),  
+                   ordered = T, levels = c('Right', 'Overweight', 'Underweight'))
+Gender <- c(rep('Female', 3), rep('Male', 3))
+data <- data.frame(Percentage, Category, Gender)
+ggplot(data, aes(x = Category, y = Percentage, fill = Gender)) +
+  geom_col(position = 'dodge')
+```
+
+d. Approximately the same percentage feels their weight is about right,   
+More women think that they are overweight and   
+more men think that they are underweight.   
+
+e. Students whose ages are probably between 18 ~ 22 (college ages).    
+Because this was a class survey and the statistic students responded to the questions.    
+
+##Q426    
+a. For short, the risk of having been bullied is 45.65217%.   
+For not short, the risk of having been bullied is 25.64103%.    
+
+```{r}
+short = 92; short.bullied = 42; notshort = 117; notshort.bullied = 30
+
+risk.short = short.bullied/short; risk.short
+risk.notshort = notshort.bullied/notshort; risk.notshort
+```
+
+b. 1.780435   
+The risk of short being bullied is 1.780435 times the risk for not short.    
+
+```{r}
+relative = risk.short/risk.notshort; relative
+```
+
+c. 78.04348%    
+The interpretation of this percent increase in risk is that short students have a risk of being bullied is 78.04348% higher than the risk of not short students.    
+
+```{r}
+risk.increased = relative - 1; risk.increased
+```
+
+d. 2.436   
+The odds of being bullied for short are 2.436 times the odds of not short.   
+```{r}
+short.unbullied = short - short.bullied; short.unbullied
+notshort.unbullied = notshort - notshort.bullied; notshort.unbullied
+
+odds.short = short.bullied/short.unbullied; odds.short
+odds.notshort = notshort.bullied/notshort.unbullied; odds.notshort
+
+odds.ratio = odds.short/odds.notshort; odds.ratio
+```
+
+##Q436    
+a. New Treatment
+```{r}
+AS = 5/100; AN = 100/1000
+AS > AN
+```
+
+b. New Treatment
+```{r}
+BS = 500/1000; BN = 95/100
+BS > BN
+```
+
+c. Standard Treatment
+```{r}
+outcome = c('Survive', 'Die', 'Total')
+treatment = c('Standard', 'New', 'Total')
+Standard = c(5+500, 95+500, 100+1000)
+New = c(100+95, 900+5, 100+1000)
+Total = c(Standard[1]+New[1], Standard[2]+New[2], Standard[3]+New[3])
+
+data <- c(Standard, New, Total)
+table = matrix(data, byrow = T, nrow = 3)
+colnames(table) <- outcome
+rownames(table) <- treatment
+table
+
+TS = (5+500)/(100+1000); TN = (100+95)/(1000+100)
+TS > TN
+```
+
+d. Simpson's Paradox.   
+When we considered subgroups, the relationship between treatment and outcome reversed.   
+
+##Q1518   
+a. **Step1**    
+H0：Smoking habits and Marital status are not related.   
+H1：Smoking habits and Marrital status are related.   
+
+b. **Step2**    
+Conditions for Chi-Square test are met    
+since 3/4 expected counts are 5+ and no expected counts are < 1.    
+```{r}
+status <- c('Separated', 'Not_Separated', 'Total')
+Smoking <- c('Neither_smoked', 'One_smoked', 'Both_smoked', 'Total')
+Neither_smoked = c(41, 931, 972)
+One_smoked = c(41, 290, 331)
+Both_smoked = c(32, 163, 195)
+Total = c(114, 1384, 1498)
+
+data <- c(Neither_smoked, One_smoked, Both_smoked, Total)
+table = matrix(data, byrow = T, nrow = 4)
+colnames(table) <- status
+rownames(table) <- Smoking
+table
+
+#Calculate Expected Counts
+table_expected = table
+for (i in 1:3) {
+  table_expected[i,1] = table[4,1]*table[i,3]/table[4,3]
+  table_expected[i,2] = table[4,2]*table[i,3]/table[4,3]
+}
+table_expected
+
+#Calculate chi-square statistics
+chisq = 0
+for (i in 1:3) {
+  for(j in 1:2) {
+    chisq = chisq + (table[i,j] - table_expected[i,j])^2/table_expected[i,j]
+  }
+}
+chisq
+```
+
+**Step3**
+```{r}
+df = (3-1)*(2-1)
+p_value = pchisq(chisq, df = df, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+p_value < 0.05
+```
+Since p_value is less than significance level(0.05),    
+The sample shows statistically significant and
+we can reject the null hypthesis in favor of the alternative hypothesis.    
+
+**Step5**   
+The sample data shows enough evidence to reject null hypothesis.    
+In conclusion, we can say that there is a relationship between smoking habit and marital status in the population of all Austrailian couples.       
+
+##Q1526
+a.    
+```{r}
+Frequent = c('Most times/Always', 'Rarely/Never', 'Total')
+Gender = c('Female', 'Male', 'Total')
+Female = c(964, 97, 1061)
+Male = c(924, 254, 1178)
+Total = c(1888, 351, 2239)
+
+data <- c(Female, Male, Total)
+table = matrix(data, byrow = T, nrow = 3)
+colnames(table) <- Frequent
+rownames(table) <- Gender
+table
+
+chisq = (table[3,3]*(table[1,1]*table[2,2] - table[1,2]*table[2,1])^2)/(table[1,3]*table[2,3]*table[3,1]*table[3,2])
+chisq
+```
+
+b.
+```{r}
+(2-1)*(2-1)
+```
+
+c.
+```{r}
+p_value = pchisq(chisq, df = 1, lower.tail = F);p_value
+```
+
+d.
+```{r}
+p_value < 0.05
+```
+Since p_value is less than significance level(0.05),    
+The sample shows statistically significant and
+we can reject the null hypthesis in favor of the alternative hypothesis.   
+In conclusion, we can say that there is a relationship between the sex of a student and the freuency of wearing a seatbelt in the population of all American students.   
+
+##Q1540  
+**Step1**   
+H0：The colors are equally preferred.   
+H1：The colors are not equally preferred.   
+
+**Step2**   
+Conditions for Chi-Square test are met    
+since 3/4 expected counts are 5+ and no expected counts are < 1.    
+```{r}
+counts <- c(59, 27, 25)
+expected <- c(37, 37, 37)#equally preferred
+chisq = 0
+for (i in 1:3){
+  chisq = chisq + (counts[i] - expected[i])^2/expected[i]
+}
+chisq
+```
+
+**Step3**   
+```{r}
+#df：goodness of fit df k - 1
+p_value = pchisq(chisq, df = 3 - 1, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+p_value < 0.05
+```
+Since p_value is less than significance level(0.05),    
+The sample shows statistically significant and
+we can reject the null hypthesis in favor of the alternative hypothesis.    
+
+**Step5**   
+In conclusion, we can say that the probabilities of selecting the color for a new car are not the same in the population of all statistics students.    
+
+##R Function Practice     
+
+###**Customized Chi-Square Function**    
+
+```{r}
+MyChiSq <- function(table) {
+  # row total, column total, total
+  total_row = c()
+  for (i in 1:nrow(table)){
+    total_row[i] = sum(table[i,])
+  }
+  total_col = c()
+  for (i in 1:ncol(table)){
+    total_col[i] = sum(table[,i])
+  }
+  total = sum(table)
+  
+  
+  # generate an expected table
+  table_expected = table
+  for (i in 1:nrow(table)) {
+    for ( j in 1:ncol(table)) {
+      table_expected[i,j] = total_row[i]*total_col[j]/total
+    }
+  }
+  
+  # calculate each (observed-expected)^2/expected and Chi-square statistics
+  chisq = 0
+  for (i in 1:nrow(table)) {
+    for ( j in 1:ncol(table)) {
+      chisq = chisq + (table[i,j] - table_expected[i,j])^2/table_expected[i,j]
+    }
+  }
+  
+  # calculate p-value
+  df = (nrow(table) - 1)*(ncol(table) - 1)
+  p_value = pchisq(chisq, df = df, lower.tail = F)
+
+  # results of the function
+  results = list(X.squared = chisq, df = df, p.value = p_value)
+  return(results)
+  
+}
+data = read.csv("heartatk.csv")
+table = xtabs(~ SEX + DIED, data = data) # generate a 2x2 table
+MyChiSq(table)
+```
+
+###**Testing Binomial Distribution**   
+
+**Step1**   
+H0：符合二項分布    
+H1：不符合二項分布    
+
+**Step2**   
+```{r}
+x = c(0,1,2,3,4,5,6,7)#每周下雨天數
+
+#observed values
+obs = c(5,13,26,19,20,7,0,0)#周次數
+n = sum(obs)
+pp = sum(x*obs)/(n*7)
+
+#expected values
+exp = c()
+for (i in 1:length(obs)) {
+  exp[i] = dbinom(x = x[i], prob = pp, size = 7) * n
+}
+
+tbl = data.frame(x, obs, exp);tbl
+```
+滿足卡方檢定的條件。    
+
+```{r}
+#calculate the chi-square statistic
+chisq = sum((tbl$obs-tbl$exp)^2/tbl$exp); chisq
+```
+
+**Step3**   
+```{r}
+df = nrow(tbl)-1-1 #k-1-r
+p_value = pchisq(chisq, df = df, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+alpha = 0.05
+p_value < alpha
+```
+p_value小於顯著水準，我們沒有足夠的證據推翻H0。
+
+**Step5**   
+既然我們無法拒絕虛無假說，我們就不能下【不符合二項分布】的結論，因為我們不能拒絕【符合二項分布】的可能性。    
+
+###**Testing Normal Distribution**  
+
+**Step1**   
+H0：符合常態分佈    
+H1：不符合常態分布
+
+**Step2**   
+```{r}
+pm2.5 = c(18.8, 14.6, 14.0, 15.8, 12.4, 13.2, 16.1, 13.8, 16.2, 
+          16.1, 17.8, 18.7, 15.8, 13.3, 13.6, 16.4, 13.8, 16.6, 
+          15.3, 19.0, 18.4, 15.0, 18.8, 18.1, 17.3, 16.3, 17.5, 
+          18.1, 14.2, 18.0, 13.0, 13.3, 12.4, 16.6, 14.1, 20.6, 
+          16.8, 13.3, 18.2, 16.9)
+
+#defining thresholds to categorize continuous data
+mean = mean(pm2.5)
+sd = sd(pm2.5)
+
+n = length(pm2.5)
+
+thres = c(mean-3*sd, mean-2*sd, mean-sd, mean, mean+sd, mean+2*sd, mean+3*sd)
+
+#observed values (continuous --> discrete)
+obs = rep(0, length = 8)
+
+for (i in 1:length(pm2.5)) {
+  if (pm2.5[i] < thres[1]) {
+    obs[1] = obs[1] + 1
+  } else if (thres[1] <= pm2.5[i] && pm2.5[i] < thres[2]) {
+    obs[2] = obs[2] + 1
+  } else if (thres[2] <= pm2.5[i] && pm2.5[i] < thres[3]) {
+    obs[3] = obs[3] + 1
+  } else if (thres[3] <= pm2.5[i] && pm2.5[i] < thres[4]) {
+    obs[4] = obs[4] + 1
+  } else if (thres[4] <= pm2.5[i] && pm2.5[i] < thres[5]) {
+    obs[5] = obs[5] + 1
+  } else if (thres[5] <= pm2.5[i] && pm2.5[i] < thres[6]) {
+    obs[6] = obs[6] + 1
+  } else if (thres[6] <= pm2.5[i] && pm2.5[i] < thres[7]) {
+    obs[7] = obs[7] + 1
+  } else {
+    obs[8] = obs[8] + 1
+  }
+}
+
+#expected values
+cumu.p = c(pnorm(thres[1], mean = mean, sd = sd), 
+           pnorm(thres[2], mean = mean, sd = sd) - pnorm(thres[1], mean = mean, sd = sd), 
+           pnorm(thres[3], mean = mean, sd = sd) - pnorm(thres[2], mean = mean, sd = sd), 
+           pnorm(thres[4], mean = mean, sd = sd) - pnorm(thres[3], mean = mean, sd = sd), 
+           pnorm(thres[5], mean = mean, sd = sd) - pnorm(thres[4], mean = mean, sd = sd), 
+           pnorm(thres[6], mean = mean, sd = sd) - pnorm(thres[5], mean = mean, sd = sd), 
+           pnorm(thres[7], mean = mean, sd = sd) - pnorm(thres[6], mean = mean, sd = sd), 
+           pnorm(thres[7], mean = mean, sd = sd, lower.tail = F)
+           )
+
+exp = cumu.p * n
+
+cate = c("< m-3d", "m-3d ~ m-2d", "m-2d ~ m-d", "m-d ~ m", "m ~ m+d", "m+d ~ m+2d", "m+2d ~ m+3d", "> m+3d")
+
+tbl = data.frame(obs, exp)
+rownames(tbl) = cate
+tbl
+```
+
+滿足卡方檢定的條件。    
+```{r}
+#calculate the chi-square statistic
+chisq = sum((tbl$obs-tbl$exp)^2/tbl$exp); chisq
+```
+
+**Step3**   
+```{r}
+df = nrow(tbl)-1-2  # k-1-r
+p_value = pchisq(chisq, df = df, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+alpha = 0.05
+p_value < alpha
+```
+
+p_value小於顯著水準，我們沒有足夠的證據推翻H0。
+
+**Step5**   
+既然我們無法拒絕虛無假說，我們就不能下【不符合常態分布】的結論，因為我們不能拒絕【符合常態分布】的可能性。    
