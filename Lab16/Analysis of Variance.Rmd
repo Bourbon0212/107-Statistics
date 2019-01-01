@@ -20,14 +20,124 @@ d. According to column of `StDev` inside the output, we can see that the standar
 Since that, the assumption of equal population standard deviations is reasonable for these data.   
 
 ##Q1624   
-a. 
+a. xbar = 7；xbar1 = 5；xbar2= 6；xbar3 = 10    
 ```{r}
 drug <- c(rep('Drug1',4),rep('Drug2',4),rep('Drug3',4))
 drug <- factor(drug)
 count <- c(7,2,5,6,8,12,0,4,16,9,5,10)
 data <- data.frame(drug, count)
 
-mean(count)
-tapply(data$count, data$drug, mean)
+xbar = mean(count);xbar
+xbari = tapply(data$count, data$drug, mean);xbari
 ```
+
+b. SS Groups = 56
+```{r}
+SSG = 0
+for (i in 1:length(xbari)){
+  SSG = SSG + 4 * (unname(xbari[i]) - xbar)^2
+}
+SSG
+```
+
+c. SSTO = 212
+```{r}
+SSTO = 0
+for (i in 1:length(count)){
+  SSTO = SSTO + (count[i] - xbar)^2
+}
+SSTO
+```
+
+d. SSE = 156
+```{r}
+SSE = SSTO - SSG;SSE
+```
+
+e. F = 1.615；DF = 2 and 9.   
+```{r}
+MSG = SSG/(3-1)
+MSE = SSE/(12-3)
+F_value = MSG/MSE;F_value
+```
+
+##Q1636
+a. For male, those who sit in the front of the classroom slept the least the previous night.    
+On the other hand, those who sit in the back of the classroom slept the most.   
+
+b. For females, the situation reversed.   
+Those who sit in the back slept the least, and those sit in the front slept the most.   
+
+c. Yes, there is an interaction since there is no constant distance between the graph of female and male.    
+This shows us the preferred seat location in the classroom depends upon the sex of the student.   
+
+##Q1652   
+a. From the boxplot below, we can notice that the ratings of region 3 is the highest of all, region 2 is the lowest, and region 1 is somewhere between region 2 and 3.    
+We can also see that 3 regions have approximately the same spread, but the spread of region 3 is a little bit smaller than others.
+```{r}
+load('wineratings.rdata')
+library(ggplot2)
+ggplot(wineratings, aes(x = factor(r), y = q)) +
+  geom_boxplot() +
+  ggtitle('Comarison of Quality Ratings in Different Wine Region')
+```
+
+b. xbar1 = 11.97647; xbar2 = 10.44444; xbar3 = 14.58333   
+sd1 = 1.327841; sd2 = 1.515017; sd3 = 1.111783    
+```{r message=F}
+library(dplyr)
+group <- wineratings$q
+group1 <- filter(wineratings, r == 1)$q
+group2 <- filter(wineratings, r == 2)$q
+group3 <- filter(wineratings, r == 3)$q
+ni = c(17, 9, 12)
+xbar = mean(group);xbar1 = mean(group1);xbar2 = mean(group2);xbar3 = mean(group3)
+xbari = c(xbar1,xbar2, xbar3);xbari
+sd = sd(group);sd1 = sd(group1);sd2 = sd(group2);sd3 = sd(group3)
+sdi = c(sd1, sd2, sd3);sdi
+```
+
+c. 
+**Step1**   
+H0：The population means of 3 regions are all the same.(mu1 = mu2 = mu3)    
+H1：The population means of 3 regions are not all equal.(mui != muj)  
+
+**Step2**   
+From the boxblot, we can see that all of 3 groups are symmetric and bell-shaped without extremely skewness and extreme outliers.  
+Besides, the assumption of equal variance is reasonable since the spread of 3 groups is similar. 
+Finally, we assumed that the samples are taken randomly and independently.    
+Since that, the necessary conditions for conductiong an one-way ANOVA are all met.   
+
+Let's calculate the f-statistic!    
+```{r}
+#Degrees of feedom
+NDF = 3 - 1; DDF = 38 - 3
+
+#F-vlaue calculation
+SSG = 0
+for (i in 1:length(xbari)){
+  SSG = SSG + ni[i] * (xbari[i] - xbar)^2
+}
+SSG
+SSTO = 0
+for (i in 1:length(group)){
+  SSTO = SSTO + (group[i] - xbar)^2
+}
+SSTO
+SSE = SSTO - SSG;SSE
+MSG = SSG/NDF
+MSE = SSE/DDF
+f_value = MSG/MSE;f_value
+```
+
+**Step3**
+```{r}
+p_value = pf(f_value, df1 = NDF, df2 = DDF, lower.tail = F);p_value
+```
+
+**Step4**   
+Since the p-value is smaller than the significance level we use (alpha = 0.5), we can now reject the null hypothesis in favor of the alternative hypothesis.    
+
+**Step5**   
+The sample shows statistical significance which means we can conclude that the quality ratings in 3 different regions are not all the same.
 
