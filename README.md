@@ -17,6 +17,7 @@ Lab11: [Testing Hypotheses about Means](https://bourbon0212.github.io/107-Statis
 Lab13: [Relationship Between Quantitative Variables](https://bourbon0212.github.io/107-Statistics/Lab13/Relationship_Between_Quantitative_Variables.html)    
 Lab14：[Inference about Simple Regression](https://bourbon0212.github.io/107-Statistics/Lab14/Inference_about_Simple_Regression.html)  
 Lab15：[Inference for Categorical Variables](https://bourbon0212.github.io/107-Statistics/Lab15/Inference_for_Categorical_Variables.html)    
+Lab16：[Analysis of Variance](https://bourbon0212.github.io/107-Statistics/Lab16/Analysis_of_Variance.html)    
 
 ### Exercise
 [Quiz1](https://bourbon0212.github.io/107-Statistics/Lab2/Quiz1.html)     
