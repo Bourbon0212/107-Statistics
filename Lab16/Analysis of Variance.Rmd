@@ -1,0 +1,33 @@
+---
+title: "Analysis of Variance"
+author: "b06208001 龔泓愷"
+date: "2018年12月28日"
+output: html_document
+---
+##Q168    
+a. H0：The population means of four age groups are all the same.(mu1 = mu2 = mu3 = mu4)    
+H1：The population means of four age groups are not all equal.(mui != muj)    
+
+b. According to the output, the F-value is `7.41` and the p-value is `0.000`.   
+From the information, we can reject the null hypothesis in favor of the alternative hypothesis.     
+In other words, we can conclude that the population means of four age groups are not all equal.   
+
+c. According to the graph inside the output, we can notice that group1 (age 18-29) and group2 (age 60-89) probably hold the same opinions on the ideal number of children for a couple to have.    
+On the other hand, group2 (age 30-44) and group3 (age 45-59) thinks approximately the same on this issue and they do not overlap with group1 and group4.   
+Finally, we can see that the means of group1 and group4 are higher than group2 and group4.   
+
+d. According to column of `StDev` inside the output, we can see that the standard deviations of the four groups are roughly the same.     
+Since that, the assumption of equal population standard deviations is reasonable for these data.   
+
+##Q1624   
+a. 
+```{r}
+drug <- c(rep('Drug1',4),rep('Drug2',4),rep('Drug3',4))
+drug <- factor(drug)
+count <- c(7,2,5,6,8,12,0,4,16,9,5,10)
+data <- data.frame(drug, count)
+
+mean(count)
+tapply(data$count, data$drug, mean)
+```
+
