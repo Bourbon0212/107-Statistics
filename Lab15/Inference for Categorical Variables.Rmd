@@ -290,7 +290,9 @@ MyChiSq <- function(table) {
 data = read.csv("heartatk.csv")
 table = xtabs(~ SEX + DIED, data = data) # generate a 2x2 table
 MyChiSq(table)
+chisq.test(table, correct = F)
 ```
+可以看到自訂函數與內建`chisq.test`結果相符。    
 
 ###**Testing Binomial Distribution**   
 
@@ -310,10 +312,14 @@ pp = sum(x*obs)/(n*7)
 #expected values
 exp = c()
 for (i in 1:length(obs)) {
-  exp[i] = dbinom(x = x[i], prob = pp, size = 7) * n
+  exp[i] = dbinom(x = x[i], prob = pp, size = 7) * n #每周下雨x天，每天下雨機率pp，每周7天(有下雨/沒下雨)
 }
-
-tbl = data.frame(x, obs, exp);tbl
+#combining 6,7,8 rows
+tbl = data.frame(x, obs, exp)
+tbl.678 = tbl[6,] + tbl[7,] + tbl[8,] #add up 6,7,8 rows
+tbl = tbl[-c(6,7,8),] #remove 6,7,8 rows
+tbl = rbind(tbl, tbl.678) #add the combined row
+tbl
 ```
 滿足卡方檢定的條件。    
 
@@ -396,9 +402,15 @@ cumu.p = c(pnorm(thres[1], mean = mean, sd = sd),
 
 exp = cumu.p * n
 
-cate = c("< m-3d", "m-3d ~ m-2d", "m-2d ~ m-d", "m-d ~ m", "m ~ m+d", "m+d ~ m+2d", "m+2d ~ m+3d", "> m+3d")
+cate = c("< m-3d ~ m-d", "m-d ~ m", "m ~ m+d", "m+d ~ > m+3d")
 
 tbl = data.frame(obs, exp)
+
+tbl.123 = tbl[1,] + tbl[2,] + tbl[3,] #add up 1,2,3 rows
+tbl.678 = tbl[6,] + tbl[7,] + tbl[8,] #add up 6,7,8 rows
+tbl = tbl[-c(1,2,3,6,7,8),] #remove 1,2,3,6,7,8 rows
+tbl = rbind(tbl.123, tbl) #add the combined row
+tbl = rbind(tbl, tbl.678) #add the combined row
 rownames(tbl) = cate
 tbl
 ```
@@ -421,7 +433,7 @@ alpha = 0.05
 p_value < alpha
 ```
 
-p_value大於顯著水準，我們沒有足夠的證據推翻H0。
+p_value小於顯著水準，我們有足夠的證據推翻H0。
 
 **Step5**   
-既然我們無法拒絕虛無假說，我們就不能下【不符合常態分布】的結論，因為我們不能拒絕【符合常態分布】的可能性。    
+我們拒絕虛無假說接受對立假說，因此我們能下【不符合常態分布】的結論。    
