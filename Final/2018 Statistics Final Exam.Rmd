@@ -1,0 +1,320 @@
+---
+title: "2018 Statistics Final Exam"
+author: "b06208001 龔泓愷"
+date: "2019年1月9日"
+output: html_document
+---
+#1    
+##1-2   
+(1) **0.01431718**  
+```{r}
+under25 = 65 / 4540; under25
+```
+
+(2) **1.329994, which means that the risk of hypertension for women who were 25 years or older when they had their first child is 1.329994 times the risk of those who were under 25.**    
+```{r}
+older25 = 31 / 1628
+relative = older25/under25; relative
+```
+
+(3) **32.99943%**   
+```{r}
+percent.increased = relative - 1; percent.increased
+```
+
+(4) **No, since the experiment here is an observational study. If we want to proove the causation, we should use randomized experiment rather than observational studies.**
+
+##1-4   
+(1) 
+```{r}
+count = c(264, 54, 410, 122, 287, 264)
+table = matrix(count, ncol = 2, byrow = T)
+table = as.table(table)
+rownames(table) = c('A', 'B', 'C')
+colnames(table) = c('Yes', 'No')
+table
+```
+**Step1**   
+H0：Region and use of social networking sites are **not** related in the population.    
+H1：Region and use of social networking sites are related in the population.    
+
+**Step2**   
+```{r}
+# generate an expected table
+table_exp = table
+for (i in 1:3){
+  for (j in 1:2){
+    table_exp[i,j] = sum(table[i,])*sum(table[,j])/sum(table)
+  }
+}
+table_exp
+```
+
+The necessary conditions for chi-square test are met.   
+
+```{r}
+# calculate each (observed-expected)^2/expected and Chi-square statistics
+chisq = 0
+for (i in 1:3) {
+  for(j in 1:2) {
+    chisq = chisq + (table[i,j] - table_exp[i,j])^2/table_exp[i,j]
+  }
+}
+chisq
+```
+
+**Step3**
+```{r}
+# calculate p-value
+df = (nrow(table) - 1)*(ncol(table) - 1)
+p_value = pchisq(chisq, df = df, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+p_value < 0.05
+
+# Check again
+chisq.test(table, correct = F)
+```
+
+Since p_value is less than significance level(0.05),
+The sample shows statistically significant and we can reject the null hypthesis in favor of the alternative hypothesis.
+
+**Step5**   
+**In conclusion, we can say that there is a relationship between Region and use of social networking sites.**  
+
+(2)   
+```{r}
+counts <- c(52, 48)
+chisq.test(counts, p = rep(1/2,length = 2), correct = F)
+```
+**Step1**   
+H0：The percentage of using social networking sites was equal to the percentage of not using social networking sites in region C.   
+H1：The percentage of using social networking sites was **not** equal to the percentage of not using social networking sites in region C.   
+
+
+**In conclusion, we can not say that "The percentage of using social networking sites was ***not*** equal to the percentage of not using social networking sites in region C."**   
+
+#2
+(1) **price = 70.4923 - 0.8286 * distance**
+```{r}
+data = read.csv('metro.csv')
+RESULTS = lm(price ~ distance, data = data)
+summary(RESULTS)
+```
+
+(2)
+
+**Step1**   
+H0：β1 = 0，The population slope is 0, so price and distance are not linearly related.    
+H1：β1 ≠ 0，The population slope is not 0, so price and distance are linearly related.    
+
+**Step2**   
+Conditions checking in (3)    
+```{r}
+b1 = -0.8286; se.b1 = 0.1988
+t = (b1 - 0)/se.b1; t #與報表相符
+```
+
+**Step3**   
+p_value = 6.826e-05 with DF = 94
+
+**Step4**   
+p_value < 0.05，Reject H0
+
+**Step5**   
+**In conclusion, we can say that price and distance are linearly related.**
+
+(3)
+
+**Scatterplot**
+```{r}
+distance = data$distance
+price = data$price
+yhat = RESULTS$fitted.values
+
+par(mfrow = c(1, 2))
+#Scatterplot of y vs. x
+plot(distance, price, pch = 16, cex = 1, col = 'navy',
+     main = 'price vs. distance', xlab = 'distance', ylab = 'price')
+#Scatterplot of residuals vs. x
+res = price - yhat
+plot(distance, res, pch = 16, cex = 1, col = 'navy',
+     main = 'residual vs. distance', xlab = 'distance', ylab = 'Residuals')
+abline(h = 0, col = 'red')
+```
+
+**Histogram of Residuals & QQ plot**    
+
+```{r}
+par(mfrow = c(1, 2))
+#Histogram of residuals
+hist(res, border = 'white', col = 'olivedrab3',
+     main = 'Histogram of Residual', xlab = 'Residuals')
+#QQ plot
+qqnorm(res)
+qqline(res, col = 'red')
+```
+
+**Linear Relationship Condition：滿足，y vs. x 呈現線性；殘差 vs. x 沒有明顯規律。**    
+**No Outliner Condition：不滿足，兩張散佈圖，左上角可能是離群值。**   
+**Constant Various Condition：不滿足，兩張散佈圖，對任何x而言，y的散佈程度不太一樣(X越大，Y越集中)。**    
+**Normal Distribution Condition：不滿足，從殘差直方圖與QQ圖看出，其呈現不太像標準常態分佈。**   
+**Independent Condition：不確定，採樣時我們才能確認。**   
+
+(4)
+**95%估計區間(-21.30782, 79.42942)**    
+**95%信賴區間(23.67092 34.45067)**    
+**可能是信賴區間，因為我們出的價可能是【所有距離捷運站50公尺的平均房價(信賴區間)】而非【某間距離捷運站50公尺的房子其房價的可能範圍(估計區間)】，另外，這邊算出的估計區間包含負值，不太合理。**
+```{r}
+PI = predict(RESULTS, data.frame(distance = 50), interval = "prediction", level = 0.95);PI
+CI = predict(RESULTS, data.frame(distance = 50), interval = "confidence", level = 0.95);CI
+```
+
+#3    
+(1)
+```{r}
+minutes = c(17,19,15,17,25,22,28,19,21,19,17)
+region = c(rep('house', 4), rep('business', 3), rep('industry', 4))
+data = data.frame(minutes, region)
+```
+**Step1**   
+H0：The population means of 3 regions are all the same.(mu1 = mu2 = mu3)    
+H1：The population means of 3 regions are not all equal.(mui != muj)
+
+**Step2**
+```{r message=F}
+library(ggplot2)
+ggplot(data, aes(x = factor(region, ordered = T, levels = c('house', 'business', 'industry')), y = minutes)) +
+  geom_boxplot() +
+  ggtitle('Comparison of Minutes of Bicycle Use in Different Living Region')
+
+library(dplyr)
+group <- data$minutes
+group1 <- filter(data, region == 'house')$minutes
+group2 <- filter(data, region == 'business')$minutes
+group3 <- filter(data, region == 'industry')$minutes
+ni = c(4, 3, 4)
+xbar = mean(group);xbar1 = mean(group1);xbar2 = mean(group2);xbar3 = mean(group3)
+xbari = c(xbar1,xbar2, xbar3);xbari
+sd = sd(group);sd1 = sd(group1);sd2 = sd(group2);sd3 = sd(group3)
+sdi = c(sd1, sd2, sd3);sdi
+```
+
+從盒狀圖我們可以看到三個類別內都沒有明顯離群值，看起來也大多對稱，計算標準差也符合檢定標準。
+
+```{r}
+oneway = aov(minutes ~ region, data = data)
+summary(oneway)
+```
+F-value = 13.52
+
+**Step3**   
+p_value = 0.00272
+
+**Step4**   
+p_value < 0.05，我們能拒絕虛無假說接受對立假說
+
+**Step5**   
+**樣本呈現統計上顯著，三個地區的租車時間不完全一樣，所以我們能下租車時間跟土地使用有關的結論。**
+
+(2) **95%信賴區間(14.40154, 19.59846)**
+```{r}
+t = qt(0.975, df = 3);t
+se = sd1/2
+c(xbar1-t*se, xbar1+t*se)
+```
+
+#4    
+(1)
+```{r}
+counts = c(28, 30, 20, 26, 25, 22, 23, 38, 15, 26, 22, 25)
+table = matrix(counts, byrow = T, ncol = 3)
+rownames(table) = c("N", "M", "S", "E")
+colnames(table) = c("Blue", "Green", "White")
+table
+```
+
+**Step1**   
+H0：台灣民眾政黨支持傾向在不同區域沒有差異    
+H1：台灣民眾政黨支持傾向在不同區域有差異
+
+**Step2**   
+```{r}
+# generate an expected table
+table_exp = table
+for (i in 1:4){
+  for (j in 1:3){
+    table_exp[i,j] = sum(table[i,])*sum(table[,j])/sum(table)
+  }
+}
+table_exp
+```
+
+The necessary conditions for chi-square test are met.   
+
+```{r}
+chisq = 0
+for (i in 1:4) {
+  for(j in 1:3) {
+    chisq = chisq + (table[i,j] - table_exp[i,j])^2/table_exp[i,j]
+  }
+}
+chisq
+```
+
+**Step3**
+```{r}
+# calculate p-value
+df = (nrow(table) - 1)*(ncol(table) - 1)
+p_value = pchisq(chisq, df = df, lower.tail = F);p_value
+```
+
+**Step4**   
+```{r}
+p_value < 0.05
+
+# Check again
+chisq.test(table, correct = F)
+```
+P-value > 0.05，沒有足夠證據推翻虛無假說
+
+**Step5**   
+樣本沒有呈現統計上顯著，所以我們不能下【台灣民眾政黨支持傾向在不同區域有差異】的結論，因為我們不能排除【台灣民眾政黨支持傾向在不同區域沒有差異】的可能性。    
+
+(2)
+要做的是one-way chi-square，也就是goodness-of-fit   
+**北部**
+```{r}
+counts = c(28, 30, 20)
+chisq.test(counts, p = rep(1/3,length = 3), correct = F)
+```
+
+p-value > 0.05，沒有特別偏好哪一個政黨。
+
+**中部**
+```{r}
+counts = c(26, 25, 22)
+chisq.test(counts, p = rep(1/3,length = 3), correct = F)
+```
+
+p-value > 0.05，沒有特別偏好哪一個政黨。
+
+**南部**
+```{r}
+counts = c(23, 38, 15)
+chisq.test(counts, p = rep(1/3,length = 3), correct = F)
+```
+
+p-value < 0.05，有特別偏好某政黨。
+
+**東部**
+```{r}
+counts = c(26, 22, 25)
+chisq.test(counts, p = rep(1/3,length = 3), correct = F)
+```
+
+p-value > 0.05，沒有特別偏好哪一個政黨。
+
+**最後發現，南部有特別偏好的政黨**    
