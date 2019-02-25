@@ -35,4 +35,4 @@ Midterm Exam 2：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Mid
 [Quiz10](https://bourbon0212.github.io/107-Statistics/Lab13/Quiz10.html)    
 [Quiz11](https://bourbon0212.github.io/107-Statistics/Lab14/Quiz11.html)    
 [Quiz12](https://bourbon0212.github.io/107-Statistics/Lab15/Quiz12.html)    
-Final Exam：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Midterm2/2018Midterm2.html)，[Test Paper](https://ceiba.ntu.edu.tw/course/aa5cdc/content/%E7%B5%B1%E8%A8%88%E5%AD%B8%E5%8F%8A%E5%AF%A6%E7%BF%92%E8%80%83%E8%A9%A6%E4%B8%89.pdf)
+Final Exam：[Answer Sheet](https://bourbon0212.github.io/107-Statistics/Final/2018_Statistics_Final_Exam.html)，[Test Paper](https://ceiba.ntu.edu.tw/course/aa5cdc/content/%E7%B5%B1%E8%A8%88%E5%AD%B8%E5%8F%8A%E5%AF%A6%E7%BF%92%E8%80%83%E8%A9%A6%E4%B8%89.pdf)
